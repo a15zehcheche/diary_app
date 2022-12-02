@@ -7,7 +7,7 @@ import TheHeader from './components/Header.vue'
 
 <template>
   <header>
-    <TheHeader />
+    <TheHeader title="First Page" />
     
     <img alt="Vue logo" class="logo" src="@/assets/logo.png" width="125" height="125" />
 
@@ -59,7 +59,7 @@ nav a {
 nav a:first-of-type {
   border: 0;
 }
-
+/* 
 @media (min-width: 1024px) {
   header {
     display: flex;
@@ -85,5 +85,5 @@ nav a:first-of-type {
     padding: 1rem 0;
     margin-top: 1rem;
   }
-}
+} */
 </style>
