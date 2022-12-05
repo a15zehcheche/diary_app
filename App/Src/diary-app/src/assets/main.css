@@ -1,11 +1,21 @@
 @import './base.css';
-
+hr{
+  margin: 0 1.5vh;
+  border: 1px solid  var(--c-5);
+}
+.info{
+  font-size: var(--f-s-info);
+  color: var(--c-4);
+  display: flex;
+  justify-content: center;
+}
 #app {
   /* max-width: 1280px;
   margin: 0 auto; */
   /* padding: 2rem; */
 
   font-weight: normal;
+  position: relative;
 }
 
 a,

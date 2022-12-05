@@ -16,6 +16,7 @@ export default {
         height: 60px;
         background-color: var(--c-3);
         color: var(--c-title);
+        font-size: var(--f-s-title);
         display: flex;
         align-items:center;
         position: relative;
