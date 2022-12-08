@@ -22,7 +22,7 @@ export default {
     max-width: 100%;
     width: 330px;
     margin: 20px;
-    padding: 10px;
+    padding: 20px;
     border: 2px solid var(--c-5);
     background-color: var(--c-1);
     display:inline-block;
@@ -42,7 +42,7 @@ export default {
 .content{
     display: -webkit-box;
     /* max-width: 200px; */
-    -webkit-line-clamp: 5;
+    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
 
