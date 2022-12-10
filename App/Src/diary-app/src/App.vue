@@ -7,7 +7,7 @@ import NavBar from './components/NavBar.vue'
 
 <template>
   <header>
-    <TheHeader title="First Page" />
+    <TheHeader/>
     <NavBar />
     <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.png" width="125" height="125" />
     <div class="wrapper">
@@ -29,6 +29,7 @@ import NavBar from './components/NavBar.vue'
 header {
   line-height: 1.5;
   max-height: 100vh;
+  
 }
 
 .logo {

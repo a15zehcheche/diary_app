@@ -21,7 +21,7 @@ export default {
     height: 180px;
     max-width: 100%;
     width: 330px;
-    margin: 20px;
+    margin: 20px 0;
     padding: 20px;
     border: 2px solid var(--c-5);
     background-color: var(--c-1);

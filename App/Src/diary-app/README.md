@@ -14,6 +14,18 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ```sh
 npm install
+
+environment:
+path (
+    C:\Users\user\AppData\Local\Android\Sdk\emulator,C:\Users\user\AppData\Local\Android\Sdk\build-tools,C:\Users\user\AppData\Local\Android\Sdk\platform-tools,
+    C:\Users\user\AppData\Local\Android\Sdk
+)
+ANDROID_HOME:C:\Users\user\AppData\Local\Android\Sdk
+ANDROID_SDK_ROOT:C:\Users\user\AppData\Local\Android\Sdk
+ANDROID_PLATFORM_TOOLS:C:\Users\user\AppData\Local\Android\Sdk\platform-tools
+JAVA_HOME:C:\Program Files\Java\jdk-11.0.17  (jdk version 11 important!!!)
+
+
 ```
 
 ### Compile and Hot-Reload for Development
@@ -22,10 +34,14 @@ npm install
 npm run dev
 npm run dev -- --host
 
+cordova run android -l -c 
+chrome://inspect/#devices  
 ```
 
 ### Compile and Minify for Production
 
 ```sh
 npm run build
+cordova build android 
+
 ```

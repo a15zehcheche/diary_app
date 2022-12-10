@@ -1,14 +1,16 @@
 <template>
     <div class="the-header">
         <img src="@/assets/logo.png" width="40"  alt="" srcset="">
-        <div class="title">{{title}}</div>
+        <div class="title">{{this.$store.state.pageTitle}}</div>
     </div>
 </template>
 <script>
 export default {
-  props: {
-    title: String,
-  }
+    data() {
+        return {
+            title:"",
+        };
+    },
 }
 </script>
 <style scoped>
