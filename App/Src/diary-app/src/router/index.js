@@ -6,7 +6,6 @@ import SettingView from '../views/SettingView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
- 
     {
       path: '/index.html',
       name: 'home',

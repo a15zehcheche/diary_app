@@ -4,41 +4,52 @@ import DiarySummary from '../components/DiarySummary.vue';
 </script>
 
 <template lang="">
+  
   <div class="title-box">
-    <div class="week">Monday</div>
-    <div class="date">05/12/2022</div>
+    <div class="week">{{week}}</div>
+    <div class="date">{{todaydate}}</div>
   </div>
   <hr>
  
   <div class="box-content">
-      <DiarySummary v-for="(item, index) in diarys" :key="index"/>
+      <DiarySummary :data="item" v-for="(item, index) in $store.state.diarys" :key="index"/>
   </div>
   <div class="info">51</div>
   <div class="footer" @click="addDiary">
     <img src="@/assets/icons8-add-new-80.png" width="50" alt="add">
   </div>
-  
+ 
 </template>
 <script>
 export default {
   data() {
     return {
-      diarys: [1],
     };
   },
   methods:{
     addDiary(){
-      this.diarys.push("new")
+      this.$store.commit("avtiveEditMode")
     }
-  }
+  },
+  computed:{
+    week(){
+      let dayNum = this.$store.state.toDay.getDay()
+      return this.$store.state.week[dayNum][1]
+    },
+    todaydate(){
+      let today = this.$store.state.toDay
+      return `${today.getDate()}/${today.getMonth()+1}/${today.getFullYear()}` 
+    }
+  } 
 }
 </script>
 <style scoped>
+
 .title-box {
   height: 60px;
   display: grid;
   grid-template-columns: auto auto;
-  margin: 0 3vh;
+  margin: 0 5vw;
 }
 
 .week {
@@ -62,7 +73,7 @@ export default {
   justify-content: center;
 }
 .info{
-  margin-bottom: 100px;
+  margin: 50px 0;
 }
 .footer {
   position: fixed;

@@ -3,13 +3,16 @@ import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import TheHeader from './components/Header.vue'
 import NavBar from './components/NavBar.vue'
+import EditView from './views/EditView.vue'
+
 </script>
 
 <template>
-  <header>
-    <TheHeader/>
-    <NavBar />
-    <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.png" width="125" height="125" />
+  <div v-bind:class="{ 'hidden': $store.state.isActiveEditMode }">
+    <header>
+      <TheHeader />
+      <NavBar />
+      <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.png" width="125" height="125" />
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
       <nav>
@@ -17,17 +20,32 @@ import NavBar from './components/NavBar.vue'
         <RouterLink to="/about">About</RouterLink>
       </nav>
     </div> -->
-  </header>
-  <div class="conten-body">
-    <RouterView />
+    </header>
+    <div class="conten-body">
+      <RouterView />
+    </div>
+    <div class="info">Data will not be saved</div>
   </div>
-  
 
-  
+  <EditView class="edit-page" v-bind:class="{ 'edit-active': $store.state.isActiveEditMode }" />
 </template>
 
 <style scoped>
-.conten-body{
+.edit-page, .hidden{
+  display: none;
+}
+
+.edit-active {
+  display: block;
+}
+
+.info {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+.conten-body {
   padding-top: 120px;
 }
 
@@ -37,7 +55,7 @@ header {
   width: 100vw;
   position: fixed;
   z-index: 1;
-  
+
 }
 
 .logo {
@@ -69,6 +87,7 @@ nav a {
 nav a:first-of-type {
   border: 0;
 }
+
 /* 
 @media (min-width: 1024px) {
   header {

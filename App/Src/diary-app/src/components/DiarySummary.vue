@@ -1,45 +1,76 @@
 <template lang="">
-    <div class="box">
-        <div class="header">
-            <div class="title">Titlesdfsdfsad sdfsdfsd fsdfsdfsdfs fsfsfsdfsdfsd fsdffd</div>
-            <img src="@/assets/face/icons8-happy-80.png" width="40" alt="mood">
+    <div>
+        <div class="time">{{time}}</div>
+        <div class="box">
+            <div class="header">
+                <div class="title">{{data.title}}</div>
+                <div class="emoji">{{data.emoji}}</div>
+            </div>
+            <div class="content">
+                <p>
+                    {{data.content}}
+                </p>
+            </div> 
         </div>
-        <div class="content">
-            <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe commodi eum veritatis necessitatibus enim sint nam, qui obcaecati quam quaerat cumque aperiam natus architecto repellat reiciendis quia voluptates ipsa alias!
-            </p>
-        </div> 
     </div>
+   
 </template>
 <script>
 export default {
-    
+    props: {
+        data: Object,
+    },
+    mounted() {
+        // console.log(this.data)
+    },
+    computed:{
+        time(){
+            let hour = new Date(this.data.time).getHours()
+            let minu = new Date(this.data.time).getMinutes()
+            return `${hour}:${minu}`
+        }
+    }
 }
 </script>
 <style scoped>
-.box{
+.time {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.box {
     height: 180px;
     max-width: 100%;
     width: 330px;
     margin: 20px 10px;
+    margin-top: 0px;
     padding: 20px;
     border: 2px solid var(--c-5);
     background-color: var(--c-1);
-    display:inline-block;
+    display: inline-block;
     box-sizing: border-box;
 }
-.header{
+
+.header {
     display: flex;
     justify-content: space-between;
     font-size: var(--f-s-title);
 }
-.header > .title{
+
+.header>.title {
+    font-weight: 500;
     max-width: 70%;
     white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-.content{
+
+.header>.emoji {
+    width: 40px
+}
+
+.content {
     display: -webkit-box;
     /* max-width: 200px; */
     -webkit-line-clamp: 4;
@@ -47,5 +78,5 @@ export default {
     overflow: hidden;
 
 
-   }
+}
 </style>
