@@ -18,17 +18,25 @@ import NavBar from './components/NavBar.vue'
       </nav>
     </div> -->
   </header>
-  <RouterView />
+  <div class="conten-body">
+    <RouterView />
+  </div>
+  
 
   
 </template>
 
 <style scoped>
-
+.conten-body{
+  padding-top: 120px;
+}
 
 header {
   line-height: 1.5;
   max-height: 100vh;
+  width: 100vw;
+  position: fixed;
+  z-index: 1;
   
 }
 

@@ -9,20 +9,23 @@ import DiarySummary from '../components/DiarySummary.vue';
     <div class="date">05/12/2022</div>
   </div>
   <hr>
-  <!-- <div class="footer">
-    <img src="@/assets/icons8-add-new-80.png" width="40" alt="add">
-  </div> -->
+ 
   <div class="box-content">
-    <div class="diary-conten">
-      <DiarySummary />
-    </div>
+      <DiarySummary v-for="(item, index) in diarys" :key="index"/>
   </div>
   <div class="info">51</div>
+  <div class="footer">
+    <img src="@/assets/icons8-add-new-80.png" width="50" alt="add">
+  </div>
   
 </template>
 <script>
 export default {
-
+  data() {
+    return {
+      diarys: [1, 2, 5, 6, 7],
+    };
+  },
 }
 </script>
 <style scoped>
@@ -53,10 +56,23 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
 }
-
-.footer {
-  height: 60px;
-  float: right;
-  margin: 0 20px;
+.info{
+  margin-bottom: 100px;
 }
+.footer {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  bottom: 0;
+  right: 0;
+  margin: 20px 20px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
+}
+
 </style>
