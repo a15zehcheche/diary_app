@@ -14,7 +14,7 @@ import DiarySummary from '../components/DiarySummary.vue';
       <DiarySummary v-for="(item, index) in diarys" :key="index"/>
   </div>
   <div class="info">51</div>
-  <div class="footer">
+  <div class="footer" @click="addDiary">
     <img src="@/assets/icons8-add-new-80.png" width="50" alt="add">
   </div>
   
@@ -23,9 +23,14 @@ import DiarySummary from '../components/DiarySummary.vue';
 export default {
   data() {
     return {
-      diarys: [1, 2, 5, 6, 7],
+      diarys: [1],
     };
   },
+  methods:{
+    addDiary(){
+      this.diarys.push("new")
+    }
+  }
 }
 </script>
 <style scoped>
