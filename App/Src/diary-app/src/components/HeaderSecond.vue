@@ -1,6 +1,5 @@
 <template>
     <div class="the-header">
-        <img src="@/assets/icons8-cancel-64.png" width="40"  alt="" srcset="" @click="closeEditMode">
         <div class="title">{{title}}</div>
     </div>
 </template>
@@ -14,9 +13,7 @@ export default {
         };
     },
     methods:{
-        closeEditMode(){
-            this.$store.commit("closeEditmode")
-        }
+    
     }
 }
 </script>

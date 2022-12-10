@@ -1,4 +1,21 @@
 @import './base.css';
+.closeBtn {
+  position: absolute;
+  height: 60px;
+  width: 60px;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hidden{
+  display: none;
+}
+.show {
+  display: block !important;
+}
 hr{
   margin: 0 1.5vh;
   border: 1px solid  var(--c-5);

@@ -3,12 +3,15 @@ import TheHeader from '../components/HeaderSecond.vue'
 
 </script>
 <template lang="">
-    <div class="edit-page">
+    <div class="look-page">
         <div class="closeBtn">
-            <img src="@/assets/icons8-cancel-64.png" width="40"  alt="" @click="closeEditMode"/>
+            <img src="@/assets/icons8-cancel-64.png" width="40"  alt="" @click="closeLookMode"/>
         </div>
-        <div class="saveBtn" >        
-            <img src="@/assets/icons8-save-96.png" width="35" alt="4" @click="save"/>
+        <div class="editBtn" >        
+            <img src="@/assets/icons8-edit-104.png" width="30" alt="4" @click="edit"/>
+        </div>
+        <div class="deleteBtn" >        
+            <img src="@/assets/icons8-trash-can-96.png" width="35" alt="4" @click="deletes"/>
         </div>
         <TheHeader :title="`Paper`" />
         <div class="title-box">
@@ -16,12 +19,12 @@ import TheHeader from '../components/HeaderSecond.vue'
                 <div class="week">{{week}}</div>
                 <div class="date">{{todaydate}}</div>
             </div>
-            <div class="emoji">emoji</div>
+            <div class="emoji">{{diary.emoji}}</div>
         </div>
         <hr>
         <div class="body">
-            <input type="text" placeholder="Title..." v-model="diary.title">
-            <textarea placeholder="Write something..." @input="resize()" ref="textarea" v-model="diary.content"></textarea>
+            <div>{{diary.title}}</div>
+            <div>{{diary.content}}</div>
         </div>
         
     </div>
@@ -31,56 +34,38 @@ import TheHeader from '../components/HeaderSecond.vue'
 export default {
     data() {
         return {
-            diary: {
-                time: "",
-                title: "",
-                content: "",
-                emoji: "",
-            }
-
+            diary: this.$store.state.diarys[this.$store.state.lookDiaryIndex]
         }
     },
-    updated() {
-        let element = this.$refs["textarea"];
-        element.style.height = "100px";
-        element.style.height = element.scrollHeight + 100 + "px";
+    created() {
+        // console.log(this.$store.state.lookDiaryIndex)
     },
     methods: {
-        closeEditMode(){
-            this.$store.commit("closeEditMode")
-        },
-        save() {
-            console.log("save")
-            this.$store.commit("saveDiary", this.diary)
-            this.$store.commit("closeEditMode")
-            this.diary = {
-                time: "",
-                title: "",
-                content: "",
-                emoji: "",
-            }
-        },
+        edit(){},
+        delete(){},
         resize() {
             let element = this.$refs["textarea"];
             element.style.height = "100px";
             element.style.height = element.scrollHeight + 100 + "px";
         },
+        closeLookMode() {
+            this.$store.commit("closeLookMode")
+        }
     },
     computed: {
         week() {
-            let dayNum = this.$store.state.toDay.getDay()
+            let dayNum = new Date(this.diary.time).getDay()
             return this.$store.state.week[dayNum][1]
         },
         todaydate() {
-            let today = this.$store.state.toDay
+            let today = new Date(this.diary.time)
             return `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
         }
     }
 }
 </script>
 <style scoped>
-
-.saveBtn {
+.editBtn, .deleteBtn {
     position: absolute;
     height: 60px;
     width: 60px;
@@ -91,8 +76,13 @@ export default {
     justify-content: center;
     align-items: center;
 }
+.editBtn{
+    right: 60px;
+    height: 60px;
+    width: 60px;
+}
 
-.edit-page {
+.look-page {
     position: absolute;
     top: 0;
     z-index: 2;

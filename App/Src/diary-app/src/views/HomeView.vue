@@ -1,6 +1,7 @@
 <script setup>
 import TheWelcome from '../components/TheWelcome.vue'
 import DiarySummary from '../components/DiarySummary.vue';
+
 </script>
 
 <template lang="">
@@ -12,13 +13,12 @@ import DiarySummary from '../components/DiarySummary.vue';
   <hr>
  
   <div class="box-content">
-      <DiarySummary :data="item" v-for="(item, index) in $store.state.diarys" :key="index"/>
+      <DiarySummary :data="diary" v-for="(diary, index) in diarys" :key="index" @click="look(index)"/>
   </div>
   <div class="info">51</div>
   <div class="footer" @click="addDiary">
     <img src="@/assets/icons8-add-new-80.png" width="50" alt="add">
   </div>
- 
 </template>
 <script>
 export default {
@@ -26,25 +26,30 @@ export default {
     return {
     };
   },
-  methods:{
-    addDiary(){
+  methods: {
+    addDiary() {
       this.$store.commit("avtiveEditMode")
+    },
+    look(diaryIndex) {
+      this.$store.commit("avtiveLookMode",diaryIndex)
     }
   },
-  computed:{
-    week(){
+  computed: {
+    week() {
       let dayNum = this.$store.state.toDay.getDay()
       return this.$store.state.week[dayNum][1]
     },
-    todaydate(){
+    todaydate() {
       let today = this.$store.state.toDay
-      return `${today.getDate()}/${today.getMonth()+1}/${today.getFullYear()}` 
+      return `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
+    },
+    diarys() {
+      return this.$store.state.diarys
     }
-  } 
+  }
 }
 </script>
 <style scoped>
-
 .title-box {
   height: 60px;
   display: grid;
@@ -72,9 +77,11 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
 }
-.info{
+
+.info {
   margin: 50px 0;
 }
+
 .footer {
   position: fixed;
   width: 40px;
@@ -90,5 +97,4 @@ export default {
   -moz-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
 }
-
 </style>

@@ -4,11 +4,12 @@ import HelloWorld from './components/HelloWorld.vue'
 import TheHeader from './components/Header.vue'
 import NavBar from './components/NavBar.vue'
 import EditView from './views/EditView.vue'
+import LookView from './views/LookView.vue';
 
 </script>
 
 <template>
-  <div v-bind:class="{ 'hidden': $store.state.isActiveEditMode }">
+  <div v-bind:class="{ 'hidden':!$store.state.isActiveHomePage }">
     <header>
       <TheHeader />
       <NavBar />
@@ -27,14 +28,12 @@ import EditView from './views/EditView.vue'
     <div class="info">Data will not be saved</div>
   </div>
 
-  <EditView class="edit-page" v-bind:class="{ 'edit-active': $store.state.isActiveEditMode }" />
+  <EditView class="hidden" v-if="$store.state.isActiveEditMode" v-bind:class="{ 'show': $store.state.isActiveEditMode }" />
+  <LookView class="hidden" v-if="$store.state.isActiveLookMode" v-bind:class="{ 'show': $store.state.isActiveLookMode }"/>
+
 </template>
 
 <style scoped>
-.edit-page, .hidden{
-  display: none;
-}
-
 .edit-active {
   display: block;
 }

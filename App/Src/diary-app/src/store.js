@@ -1,8 +1,11 @@
 import { createStore } from "vuex";
 export default createStore({
   state: {
+    lookDiaryIndex:0,
     toDay: new Date(),
+    isActiveHomePage: true,
     isActiveEditMode: false,
+    isActiveLookMode: false,
     pageTitle: "Diary",
     dbName: "my.db",
     packageName: "io.cordova.todolist",
@@ -59,15 +62,31 @@ export default createStore({
       }else{
         saveDiary.content =  diary.content
       }
-      console.log(saveDiary)
+      // console.log(saveDiary)
       state.diarys.push(saveDiary)
     },
+
     avtiveEditMode(state) {
       state.isActiveEditMode = true
+      state.isActiveHomePage = false
     },
-    closeEditmode(state) {
+    closeEditMode(state) {
       state.isActiveEditMode = false
+      state.isActiveHomePage = true
     },
+
+    avtiveLookMode(state,diaryIndex) {
+      state.isActiveLookMode = true
+      state.isActiveHomePage = false
+      // console.log("store" + diaryIndex)
+      state.lookDiaryIndex = diaryIndex
+    },
+    closeLookMode(state) {
+      state.isActiveLookMode = false
+      state.isActiveHomePage = true
+     
+    },
+
     setPageTitle(state, name) {
       state.pageTitle = name;
     },
