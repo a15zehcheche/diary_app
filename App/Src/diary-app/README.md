@@ -38,6 +38,9 @@ cordova run android -l -c
 chrome://inspect/#devices  
 ```
 
+cordova platform add android
+cordova plugin add cordova-sqlite-storage
+
 ### Compile and Minify for Production
 
 ```sh

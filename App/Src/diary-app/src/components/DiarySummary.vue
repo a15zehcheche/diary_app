@@ -4,7 +4,7 @@
         <div class="box">
             <div class="header">
                 <div class="title">{{data.title}}</div>
-                <div class="emoji">{{data.emoji}}</div>
+                <div v-if="$store.state.emojiActive" class="emoji">{{data.emoji}}</div>
             </div>
             <div class="content">
                 <p>

@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 export default createStore({
   state: {
+    emojiActive:false,
     lookDiaryIndex:0,
     toDay: new Date(),
     isActiveHomePage: true,
@@ -10,17 +11,17 @@ export default createStore({
     dbName: "my.db",
     packageName: "io.cordova.todolist",
     count: 1,
-    db: null,
+    sqliteDbManager: null,
     diarys: [
       {
         time: 1670696376155,
-        title: "Test",
+        title: "Test1",
         content: "lorem asda dasd adas das asd asdas asd asd asda sd asda da das asd asd asdasda das das as asd asd asd asd asdas dasd a",
         emoji: "😀"
       },
       {
         time: 1670696098431,
-        title: "Test",
+        title: "Test2",
         content: "lorem asda dasd adas das asd asdas asd asd asda sd asda da das asd asd asdasda das das as asd asd asd asd asdas dasd a",
         emoji: "😀"
       }
@@ -86,7 +87,7 @@ export default createStore({
       state.isActiveHomePage = true
      
     },
-
+    // ---------------------------------------------------------
     setPageTitle(state, name) {
       state.pageTitle = name;
     },

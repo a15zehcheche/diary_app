@@ -9,7 +9,7 @@ import LookView from './views/LookView.vue';
 </script>
 
 <template>
-  <div v-bind:class="{ 'hidden':!$store.state.isActiveHomePage }">
+  <div v-bind:class="{ 'hidden': !$store.state.isActiveHomePage }">
     <header>
       <TheHeader />
       <NavBar />
@@ -28,11 +28,48 @@ import LookView from './views/LookView.vue';
     <div class="info">Data will not be saved</div>
   </div>
 
-  <EditView class="hidden" v-if="$store.state.isActiveEditMode" v-bind:class="{ 'show': $store.state.isActiveEditMode }" />
-  <LookView class="hidden" v-if="$store.state.isActiveLookMode" v-bind:class="{ 'show': $store.state.isActiveLookMode }"/>
+  <EditView class="hidden" v-bind:class="{ 'show': $store.state.isActiveEditMode }" />
+  <LookView class="hidden" v-if="$store.state.isActiveLookMode"
+    v-bind:class="{ 'show': $store.state.isActiveLookMode }" />
 
 </template>
+<script>
+import SqliteManager from "./controller/sqliteManager.js"
+export default {
+  name: "App",
+  components: {
+  },
+  mounted() {
+    let sqliteDbManager = new SqliteManager("s")
+    console.log(sqliteDbManager)
+    if (window.cordova) {
 
+      document.addEventListener(
+        "deviceready",
+        () => {
+          console.log("cordova import success");
+          /*window.sqlitePlugin.echoTest(function () {
+            alert("Test de acceso a sqlite correcto");
+          });*/
+
+          let db = window.sqlitePlugin.openDatabase({
+            name: this.$store.state.dbName,
+            location: "default",
+            androidDatabaseProvider: 'system'
+          });
+
+          let sqliteDbManager = new SqliteManager(db)
+          this.$store.state.sqliteDbManager = sqliteDbManager
+          console.log("mydb" + sqliteDbManager.db)
+        }, false
+      );
+    } else {
+      console.log("cordova import error");
+    }
+  },
+};
+
+</script>
 <style scoped>
 .edit-active {
   display: block;

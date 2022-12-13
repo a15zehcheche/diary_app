@@ -19,11 +19,14 @@ import TheHeader from '../components/HeaderSecond.vue'
                 <div class="week">{{week}}</div>
                 <div class="date">{{todaydate}}</div>
             </div>
-            <div class="emoji">{{diary.emoji}}</div>
+            <div>
+                <div v-if="$store.state.emojiActive" class="emoji">{{diary.emoji}}</div>
+                <div class="time">{{time}}</div>
+            </div>
         </div>
         <hr>
         <div class="body">
-            <div>{{diary.title}}</div>
+            <div class="diary-title">{{diary.title}}</div>
             <div>{{diary.content}}</div>
         </div>
         
@@ -60,6 +63,10 @@ export default {
         todaydate() {
             let today = new Date(this.diary.time)
             return `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
+        },
+        time(){
+            let today = new Date(this.diary.time)
+            return `${today.getHours()}:${ today.getMinutes()}`
         }
     }
 }
@@ -105,6 +112,11 @@ export default {
     font-weight: bold;
     font-size: var(--f-s-20);
 }
+.time{
+    display: flex;
+    align-items: flex-end;
+    justify-content: end;
+}
 
 .date {
     font-size: var(--f-s-title);
@@ -122,6 +134,10 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.diary-title{
+    font-size: var(--f-s-title);
 }
 
 .body * {

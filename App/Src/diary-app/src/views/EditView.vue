@@ -16,7 +16,10 @@ import TheHeader from '../components/HeaderSecond.vue'
                 <div class="week">{{week}}</div>
                 <div class="date">{{todaydate}}</div>
             </div>
-            <div class="emoji">emoji</div>
+            <div>
+                <div v-if="$store.state.emojiActive" class="emoji">emoji</div>
+                <div class="time">{{time}}</div>
+            </div>
         </div>
         <hr>
         <div class="body">
@@ -74,6 +77,10 @@ export default {
         todaydate() {
             let today = this.$store.state.toDay
             return `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
+        },
+        time(){
+            let today = this.$store.state.toDay
+            return `${today.getHours()}:${ today.getMinutes()}`
         }
     }
 }
@@ -125,6 +132,11 @@ export default {
     align-items: flex-end;
     justify-content: end;
     font-size: var(--f-s-title);
+}
+.time{
+    display: flex;
+    align-items: flex-end;
+    justify-content: end;
 }
 
 .body {
