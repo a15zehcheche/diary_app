@@ -13,7 +13,7 @@ import DiarySummary from '../components/DiarySummary.vue';
   <hr>
  
   <div class="box-content">
-      <DiarySummary :data="diary" v-for="(diary, index) in diarys" :key="index" @click="look(index)"/>
+      <DiarySummary :data="diary" v-for="(diary, index) in diarys" :key="index" @click="look(diary)"/>
   </div>
   <div class="info">{{$store.state.diarys.length}}</div>
   <div class="footer" @click="addDiary">
@@ -33,8 +33,8 @@ export default {
     addDiary() {
       this.$store.commit("avtiveCreateMode")
     },
-    look(diaryIndex) {
-      this.$store.commit("avtiveLookMode", diaryIndex)
+    look(diary) {
+      this.$store.commit("avtiveLookMode", diary)
     }
   },
   computed: {

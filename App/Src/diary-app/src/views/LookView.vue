@@ -38,7 +38,7 @@ import EditDiaryView from './EditDiaryView.vue';
 export default {
     data() {
         return {
-            diary: this.$store.state.diarys[this.$store.state.lookDiaryIndex]
+      
         }
     },
     created() {
@@ -76,6 +76,9 @@ export default {
         time(){
             let today = new Date(this.diary.create_date)
             return `${today.getHours()}:${ today.getMinutes()}`
+        },
+        diary(){
+            return this.$store.state.lookdiary
         }
     }
 }

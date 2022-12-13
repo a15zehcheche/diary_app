@@ -54,8 +54,9 @@ export default {
         save() {
             console.log("Update diary_copy")
             this.$store.commit("updateDiary", this.diary_copy)
-           
+            this.$store.commit("avtiveLookMode", this.diary_copy)
             this.$store.commit("getDiarys")
+            console.log(this.$store.state.diarys)
             this.$store.commit("closeEditMode")
         },
         resize() {

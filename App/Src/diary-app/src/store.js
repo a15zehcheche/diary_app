@@ -5,7 +5,7 @@ export default createStore({
   state: {
     nowDate:new Date(),
     emojiActive: false,
-    lookDiaryIndex: 0,
+    lookdiary: 0,
     isActiveHomePage: true,
     isActiveCreateMode: false,
     isActiveEditMode: false,
@@ -64,11 +64,10 @@ export default createStore({
       state.isActiveHomePage = true
     },
 
-    avtiveLookMode(state, diaryIndex) {
+    avtiveLookMode(state, diary) {
       state.isActiveLookMode = true
       state.isActiveHomePage = false
-      // console.log("store" + diaryIndex)
-      state.lookDiaryIndex = diaryIndex
+      state.lookdiary = diary
     },
     closeLookMode(state) {
       state.isActiveLookMode = false
