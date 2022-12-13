@@ -1,9 +1,11 @@
-import { createStore } from "vuex";
+import { createStore, storeKey } from "vuex";
+import SqliteManager from "./controller/sqliteManager.js"
+
 export default createStore({
   state: {
+    nowDate:new Date(),
     emojiActive: false,
     lookDiaryIndex: 0,
-    toDay: new Date(),
     isActiveHomePage: true,
     isActiveCreateMode: false,
     isActiveEditMode: false,
@@ -12,25 +14,9 @@ export default createStore({
     dbName: "my.db",
     packageName: "io.cordova.todolist",
     count: 1,
+    db: null,
     sqliteDbManager: null,
-    diarys: [
-      {
-        "diary_id": 1,
-        "diary_title": "title",
-        "diary_content": "content",
-        "emoji": "😀",
-        "create_date": 1670926612420,
-        "delete_data": 1670926612420
-      },
-      {
-        "diary_id": 2,
-        "diary_title": "title2",
-        "diary_content": "content2",
-        "emoji": "😀",
-        "create_date": 1670926612420,
-        "delete_data": 1670926612420
-      },
-    ],
+    diarys: [],
     week:
       [
         ["Su", "Sunday"],
@@ -47,30 +33,28 @@ export default createStore({
     pageTitle: (state) => state.pageTitle
   },
   actions: {
+   
   },
   mutations: {
+    refreshDate(state){
+      state.nowDate = new Date()
+    },
     saveDiary(state, diary) {
       let saveDiary = {
-        time: new Date().getTime(),
-        title: "",
-        content: "",
-        emoji: "😀",
+        "diary_title": diary.title,
+        "diary_content": diary.content,
+        "emoji": diary.emoji,
+        "create_date": diary.time,
       }
+      state.sqliteDbManager.inset_diary(saveDiary)
 
-      if (diary.title == "") {
-        saveDiary.title = "."
-      } else {
-        saveDiary.title = diary.title
-      }
-      if (diary.content == "") {
-        saveDiary.content = "."
-      } else {
-        saveDiary.content = diary.content
-      }
-      // console.log(saveDiary)
-      state.diarys.push(saveDiary)
     },
-
+    updateDiary(state,diary){
+      state.sqliteDbManager.update_diary(diary)
+    },
+    deleteDiary(state,diary){
+      state.sqliteDbManager.delete_diary(diary)
+    },
     avtiveCreateMode(state) {
       state.isActiveCreateMode = true
       state.isActiveHomePage = false
@@ -98,8 +82,39 @@ export default createStore({
     closeEditMode(state) {
       state.isActiveEditMode = false
     },
-    getDiarys(state){
-      this.sqliteDbManager.get_diary_table()
+    createDbManager(state, db) {
+      state.sqliteDbManager = new SqliteManager(db)
+      console.log("setup")
+      var create_table_query = 'CREATE TABLE IF NOT EXISTS diary ( diary_id INTEGER PRIMARY KEY AUTOINCREMENT,  diary_title TEXT, diary_content TEXT , emoji VARCHAR(20), create_date TIMESTAMP, delete_data TIMESTAMP)'
+      db.transaction(
+        function (tx) {
+          tx.executeSql(create_table_query);
+        },
+        function (error) {
+          console.log("Transaction ERROR: " + error.message);
+        },
+        function () {
+          console.log("Populated database OK");
+        }
+      );
+
+    },
+    getDiarys(state) {
+      state.diarys = [];
+      var query = `SELECT * FROM diary`
+      state.db.executeSql(query, [], function (rs) {
+        //rows have (item(index), length)
+        let items = rs.rows
+        console.log(items.length)
+        for (let i = 0; i < items.length; i++) {
+          console.log(items.item(i))
+          state.diarys.unshift(items.item(i));
+        }
+        //console.log("print diary table");
+      }, function (error) {
+        console.log('SELECT SQL statement ERROR: ' + error.message);
+      });
+      //state.diarys = this.sqliteDbManager.get_diarys_table()
     },
     // ---------------------------------------------------------
     setPageTitle(state, name) {

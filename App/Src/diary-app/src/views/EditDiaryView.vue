@@ -32,28 +32,30 @@ import TheHeader from '../components/HeaderSecond.vue'
 <script>
 
 export default {
-    props:{
-        diary:Object
+    props: {
+        diary: Object
     },
     data() {
         return {
             diary_copy: Object.assign({}, this.diary)
-
         }
     },
-    mounted(){
+    mounted() {
         let element = this.$refs["textarea"];
         element.style.height = "100px";
         element.style.height = element.scrollHeight + 100 + "px";
 
     },
-   
+
     methods: {
-        closeEditMode(){
+        closeEditMode() {
             this.$store.commit("closeEditMode")
         },
         save() {
             console.log("Update diary_copy")
+            this.$store.commit("updateDiary", this.diary_copy)
+           
+            this.$store.commit("getDiarys")
             this.$store.commit("closeEditMode")
         },
         resize() {
@@ -61,6 +63,7 @@ export default {
             element.style.height = "100px";
             element.style.height = element.scrollHeight + 100 + "px";
         },
+
     },
     computed: {
         week() {
@@ -71,15 +74,14 @@ export default {
             let today = new Date(this.diary_copy.create_date)
             return `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
         },
-        time(){
+        time() {
             let today = new Date(this.diary_copy.create_date)
-            return `${today.getHours()}:${ today.getMinutes()}`
+            return `${today.getHours()}:${today.getMinutes()}`
         }
     }
 }
 </script>
 <style scoped>
-
 .saveBtn {
     position: absolute;
     height: 60px;
@@ -126,7 +128,8 @@ export default {
     justify-content: end;
     font-size: var(--f-s-title);
 }
-.time{
+
+.time {
     display: flex;
     align-items: flex-end;
     justify-content: end;

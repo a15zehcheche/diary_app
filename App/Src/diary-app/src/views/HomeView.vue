@@ -15,7 +15,7 @@ import DiarySummary from '../components/DiarySummary.vue';
   <div class="box-content">
       <DiarySummary :data="diary" v-for="(diary, index) in diarys" :key="index" @click="look(index)"/>
   </div>
-  <div class="info">51</div>
+  <div class="info">{{$store.state.diarys.length}}</div>
   <div class="footer" @click="addDiary">
     <img src="@/assets/icons8-add-new-80.png" width="50" alt="add">
   </div>
@@ -26,21 +26,24 @@ export default {
     return {
     };
   },
+  created() {
+    
+  },
   methods: {
     addDiary() {
       this.$store.commit("avtiveCreateMode")
     },
     look(diaryIndex) {
-      this.$store.commit("avtiveLookMode",diaryIndex)
+      this.$store.commit("avtiveLookMode", diaryIndex)
     }
   },
   computed: {
     week() {
-      let dayNum = this.$store.state.toDay.getDay()
+      let dayNum =this.$store.state.nowDate.getDay()
       return this.$store.state.week[dayNum][1]
     },
     todaydate() {
-      let today = this.$store.state.toDay
+      let today = this.$store.state.nowDate
       return `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
     },
     diarys() {

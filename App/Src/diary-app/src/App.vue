@@ -28,17 +28,17 @@ import LookView from './views/LookView.vue';
     <div class="info">Data will not be saved</div>
   </div>
 
-  <CreateDiaryView class="hidden" v-bind:class="{ 'show': $store.state.isActiveCreateMode }" />
-  <LookView v-if="$store.state.isActiveLookMode"/>
+  <CreateDiaryView v-if=" $store.state.isActiveCreateMode" class="hidden" v-bind:class="{ 'show': $store.state.isActiveCreateMode }" />
+  <LookView v-if="$store.state.isActiveLookMode" />
 
 </template>
 <script>
-import SqliteManager from "./controller/sqliteManager.js"
+
 export default {
   name: "App",
   components: {
   },
-  mounted() {
+  created() {
     if (window.cordova) {
 
       document.addEventListener(
@@ -54,22 +54,20 @@ export default {
             location: "default",
             androidDatabaseProvider: 'system'
           });
-          this.$store.state.sqliteDbManager = new SqliteManager(db)
-
-
+          this.$store.state.db = db
           // console.log(this.$store.state.sqliteDbManager.db)
-          this.$store.state.sqliteDbManager.create_table()
-          this.$store.state.sqliteDbManager.inset_diary()
-          this.$store.state.sqliteDbManager.inset_diary()
-
-          this.$store.state.sqliteDbManager.get_diary_table()
+          this.$store.commit("createDbManager",db)
+          this.$store.commit("getDiarys")
         }, false
       );
     } else {
       console.log("cordova import error");
     }
 
-   
+  },
+  mounted() {
+
+
   },
 };
 

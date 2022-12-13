@@ -51,6 +51,8 @@ export default {
         },
         delete_diary(){
             console.log("delete_btn tap")
+            this.$store.commit("deleteDiary",this.diary)
+            this.$store.commit("getDiarys")
             this.$store.commit("closeLookMode")
         },
         resize() {

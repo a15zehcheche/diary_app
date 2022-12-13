@@ -38,10 +38,15 @@ export default {
                 time: "",
                 title: "",
                 content: "",
-                emoji: "",
+                emoji: "😀",
             }
 
         }
+    },
+    created(){
+        this.$store.commit("refreshDate")
+        this.diary.time = this.$store.state.nowDate.getTime()
+        console.log( this.diary)
     },
     updated() {
         let element = this.$refs["textarea"];
@@ -55,9 +60,10 @@ export default {
         save() {
             console.log("save")
             this.$store.commit("saveDiary", this.diary)
+            this.$store.commit("getDiarys")
             this.$store.commit("closeCreateMode")
             this.diary = {
-                time: "",
+                time:"",
                 title: "",
                 content: "",
                 emoji: "",
@@ -71,16 +77,16 @@ export default {
     },
     computed: {
         week() {
-            let dayNum = this.$store.state.toDay.getDay()
+            let dayNum =this.$store.state.nowDate.getDay()
             return this.$store.state.week[dayNum][1]
         },
         todaydate() {
-            let today = this.$store.state.toDay
+            let today = this.$store.state.nowDate
             return `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
         },
         time(){
-            let today = this.$store.state.toDay
-            return `${today.getHours()}:${ today.getMinutes()}`
+            let today = this.$store.state.nowDate
+            return `${today.getHours()}:${today.getMinutes()}`
         }
     }
 }

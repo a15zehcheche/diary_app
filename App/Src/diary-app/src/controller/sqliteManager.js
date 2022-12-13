@@ -14,7 +14,7 @@ export default class DbManager {
     }
     create_table() {
         console.log("create table diary");
-        var create_table_query = 'CREATE TABLE IF NOT EXISTS diary ( diary_id INTEGER PRIMARY KEY AUTOINCREMENT,  diary_title TEXT, diary_content TEXT , emoji VARCHAR(20), create_date TIMESTAMP, delete_data TIMESTAMP)'
+        let create_table_query = 'CREATE TABLE IF NOT EXISTS diary ( diary_id INTEGER PRIMARY KEY AUTOINCREMENT,  diary_title TEXT, diary_content TEXT , emoji letCHAR(20), create_date TIMESTAMP, delete_data TIMESTAMP)'
         this.db.transaction(
             function (tx) {
                 tx.executeSql(create_table_query);
@@ -27,21 +27,11 @@ export default class DbManager {
             }
         );
     }
-    inset_diary() {
-        console.log("insert data to table diary");
-        var inset_query = 'INSERT INTO diary (diary_title,diary_content,emoji,create_date,delete_data)  VALUES("title","content","😀","1670926612420","1670926612420")'
 
-        this.db.executeSql(inset_query, [], function(rs) {
-            console.log('INSERT Success');
-            console.log(rs)
-          }, function(error) {
-            console.log('INSERT ERROR: ' + error.message);
-          });
-    }  
-    get_diary_table(){
+    get_diarys_table() {
         console.log("print table diary");
-        var query=`SELECT * FROM ${this.table_name}`
-        this.db.executeSql(query, [], function(rs) {
+        let query = `SELECT * FROM ${this.table_name}`
+        this.db.executeSql(query, [], function (rs) {
             //rows have (item(index), length)
             let items = rs.rows
             console.log(items.length)
@@ -49,9 +39,48 @@ export default class DbManager {
             //  console.log(items.item(i))
             // }
             return rs.rows
-          }, function(error) {
+        }, function (error) {
             console.log('SELECT SQL statement ERROR: ' + error.message);
-          });
+            return new Array()
+        });
+    }
+
+    inset_diary(diary) {
+        console.log("insert data to table diary");
+        let inset_query = `INSERT INTO diary (diary_title,diary_content,emoji,create_date)  VALUES("${diary.diary_title}","${diary.diary_content}","${diary.emoji}","${diary.create_date}")`
+
+        this.db.executeSql(inset_query, [], function (rs) {
+            console.log('INSERT Success');
+            console.log(rs)
+        }, function (error) {
+            console.log('INSERT ERROR: ' + error.message);
+        });
+    }
+
+    update_diary(diary) {
+        let update_query = `UPDATE diary
+        SET diary_title = '${diary.diary_title}',
+            diary_content = '${diary.diary_content}',
+            emoji = "${diary.emoji}"
+        WHERE
+            diary_id = ${diary.diary_id};`
+        this.db.executeSql(update_query, [], function (rs) {
+            console.log('Update Success');
+            console.log(rs)
+        }, function (error) {
+            console.log('Update ERROR: ' + error.message);
+        });
+    }
+
+    delete_diary(diary) {
+        let delete_query = `DELETE FROM diary
+            WHERE diary_id = ${diary.diary_id};`
+        this.db.executeSql(delete_query, [], function (rs) {
+            console.log('delete_Success');
+            console.log(rs)
+        }, function (error) {
+            console.log('delete_ERROR: ' + error.message);
+        });
     }
 }
 
