@@ -1,17 +1,14 @@
 <script setup>
 import TheHeader from '../components/HeaderSecond.vue'
-import EditDiaryView from './EditDiaryView.vue';
+
 </script>
 <template lang="">
-    <div class="look-page">
+    <div class="edit-page">
         <div class="closeBtn">
-            <img src="@/assets/icons8-cancel-64.png" width="40"  alt="" @click="closeLookMode"/>
+            <img src="@/assets/icons8-cancel-64.png" width="40"  alt="" @click="closeCreateMode"/>
         </div>
-        <div class="editBtn" >        
-            <img src="@/assets/icons8-edit-104.png" width="30" alt="4" @click="edit_diary"/>
-        </div>
-        <div class="deleteBtn" >        
-            <img src="@/assets/icons8-trash-can-96.png" width="35" alt="4" @click="delete_diary"/>
+        <div class="saveBtn" >        
+            <img src="@/assets/icons8-save-96.png" width="35" alt="4" @click="save"/>
         </div>
         <TheHeader :title="`Paper`" />
         <div class="title-box">
@@ -20,66 +17,77 @@ import EditDiaryView from './EditDiaryView.vue';
                 <div class="date">{{todaydate}}</div>
             </div>
             <div>
-                <div v-if="$store.state.emojiActive" class="emoji">{{diary.emoji}}</div>
+                <div v-if="$store.state.emojiActive" class="emoji">emoji</div>
                 <div class="time">{{time}}</div>
             </div>
         </div>
         <hr>
         <div class="body">
-            <div class="diary-title">{{diary.diary_title}}</div>
-            <div>{{diary.diary_content}}</div>
+            <input type="text" placeholder="Title..." v-model="diary.title">
+            <textarea placeholder="Write something..." @input="resize()" ref="textarea" v-model="diary.content"></textarea>
         </div>
-    
+        
     </div>
-    <EditDiaryView v-if="$store.state.isActiveEditMode" :diary="diary"/>
 </template>
 <script>
 
 export default {
     data() {
         return {
-            diary: this.$store.state.diarys[this.$store.state.lookDiaryIndex]
+            diary: {
+                time: "",
+                title: "",
+                content: "",
+                emoji: "",
+            }
+
         }
     },
-    created() {
-        // console.log(this.$store.state.lookDiaryIndex)
+    updated() {
+        let element = this.$refs["textarea"];
+        element.style.height = "100px";
+        element.style.height = element.scrollHeight + 100 + "px";
     },
     methods: {
-        edit_diary(){
-            console.log("edit_btn tap")
-            this.$store.commit("activeEditMode")
+        closeCreateMode(){
+            this.$store.commit("closeCreateMode")
         },
-        delete_diary(){
-            console.log("delete_btn tap")
-            this.$store.commit("closeLookMode")
+        save() {
+            console.log("save")
+            this.$store.commit("saveDiary", this.diary)
+            this.$store.commit("closeCreateMode")
+            this.diary = {
+                time: "",
+                title: "",
+                content: "",
+                emoji: "",
+            }
         },
         resize() {
             let element = this.$refs["textarea"];
             element.style.height = "100px";
             element.style.height = element.scrollHeight + 100 + "px";
         },
-        closeLookMode() {
-            this.$store.commit("closeLookMode")
-        }
     },
     computed: {
         week() {
-            let dayNum = new Date(this.diary.create_date).getDay()
+            let dayNum = this.$store.state.toDay.getDay()
             return this.$store.state.week[dayNum][1]
         },
         todaydate() {
-            let today = new Date(this.diary.create_date)
+            let today = this.$store.state.toDay
             return `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
         },
         time(){
-            let today = new Date(this.diary.create_date)
+            let today = this.$store.state.toDay
             return `${today.getHours()}:${ today.getMinutes()}`
         }
     }
 }
 </script>
 <style scoped>
-.editBtn, .deleteBtn {
+
+.saveBtn {
     position: absolute;
     height: 60px;
     width: 60px;
@@ -90,13 +98,8 @@ export default {
     justify-content: center;
     align-items: center;
 }
-.editBtn{
-    right: 60px;
-    height: 60px;
-    width: 60px;
-}
 
-.look-page {
+.edit-page {
     position: absolute;
     top: 0;
     z-index: 2;
@@ -119,11 +122,6 @@ export default {
     font-weight: bold;
     font-size: var(--f-s-20);
 }
-.time{
-    display: flex;
-    align-items: flex-end;
-    justify-content: end;
-}
 
 .date {
     font-size: var(--f-s-title);
@@ -135,16 +133,17 @@ export default {
     justify-content: end;
     font-size: var(--f-s-title);
 }
+.time{
+    display: flex;
+    align-items: flex-end;
+    justify-content: end;
+}
 
 .body {
     margin: 0 5vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
-
-.diary-title{
-    font-size: var(--f-s-title);
 }
 
 .body * {

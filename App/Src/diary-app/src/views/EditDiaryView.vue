@@ -10,7 +10,7 @@ import TheHeader from '../components/HeaderSecond.vue'
         <div class="saveBtn" >        
             <img src="@/assets/icons8-save-96.png" width="35" alt="4" @click="save"/>
         </div>
-        <TheHeader :title="`Paper`" />
+        <TheHeader :title="`Edit`" />
         <div class="title-box">
             <div>
                 <div class="week">{{week}}</div>
@@ -23,8 +23,8 @@ import TheHeader from '../components/HeaderSecond.vue'
         </div>
         <hr>
         <div class="body">
-            <input type="text" placeholder="Title..." v-model="diary.title">
-            <textarea placeholder="Write something..." @input="resize()" ref="textarea" v-model="diary.content"></textarea>
+            <input type="text" placeholder="Title..." v-model="diary_copy.diary_title">
+            <textarea placeholder="Write something..." @input="resize()" ref="textarea" v-model="diary_copy.diary_content"></textarea>
         </div>
         
     </div>
@@ -32,36 +32,29 @@ import TheHeader from '../components/HeaderSecond.vue'
 <script>
 
 export default {
+    props:{
+        diary:Object
+    },
     data() {
         return {
-            diary: {
-                time: "",
-                title: "",
-                content: "",
-                emoji: "",
-            }
+            diary_copy: Object.assign({}, this.diary)
 
         }
     },
-    updated() {
+    mounted(){
         let element = this.$refs["textarea"];
         element.style.height = "100px";
         element.style.height = element.scrollHeight + 100 + "px";
+
     },
+   
     methods: {
         closeEditMode(){
             this.$store.commit("closeEditMode")
         },
         save() {
-            console.log("save")
-            this.$store.commit("saveDiary", this.diary)
+            console.log("Update diary_copy")
             this.$store.commit("closeEditMode")
-            this.diary = {
-                time: "",
-                title: "",
-                content: "",
-                emoji: "",
-            }
         },
         resize() {
             let element = this.$refs["textarea"];
@@ -71,15 +64,15 @@ export default {
     },
     computed: {
         week() {
-            let dayNum = this.$store.state.toDay.getDay()
+            let dayNum = new Date(this.diary_copy.create_date).getDay()
             return this.$store.state.week[dayNum][1]
         },
         todaydate() {
-            let today = this.$store.state.toDay
+            let today = new Date(this.diary_copy.create_date)
             return `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
         },
         time(){
-            let today = this.$store.state.toDay
+            let today = new Date(this.diary_copy.create_date)
             return `${today.getHours()}:${ today.getMinutes()}`
         }
     }

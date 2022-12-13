@@ -3,12 +3,12 @@
         <div class="time">{{time}}</div>
         <div class="box">
             <div class="header">
-                <div class="title">{{data.title}}</div>
+                <div class="title">{{data.diary_title}}</div>
                 <div v-if="$store.state.emojiActive" class="emoji">{{data.emoji}}</div>
             </div>
             <div class="content">
                 <p>
-                    {{data.content}}
+                    {{data.diary_content}}
                 </p>
             </div> 
         </div>
@@ -25,8 +25,8 @@ export default {
     },
     computed:{
         time(){
-            let hour = new Date(this.data.time).getHours()
-            let minu = new Date(this.data.time).getMinutes()
+            let hour = new Date(this.data.create_date).getHours()
+            let minu = new Date(this.data.create_date).getMinutes()
             return `${hour}:${minu}`
         }
     }

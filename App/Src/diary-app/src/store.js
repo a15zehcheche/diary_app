@@ -1,10 +1,11 @@
 import { createStore } from "vuex";
 export default createStore({
   state: {
-    emojiActive:false,
-    lookDiaryIndex:0,
+    emojiActive: false,
+    lookDiaryIndex: 0,
     toDay: new Date(),
     isActiveHomePage: true,
+    isActiveCreateMode: false,
     isActiveEditMode: false,
     isActiveLookMode: false,
     pageTitle: "Diary",
@@ -14,18 +15,21 @@ export default createStore({
     sqliteDbManager: null,
     diarys: [
       {
-        time: 1670696376155,
-        title: "Test1",
-        content: "lorem asda dasd adas das asd asdas asd asd asda sd asda da das asd asd asdasda das das as asd asd asd asd asdas dasd a",
-        emoji: "😀"
+        "diary_id": 1,
+        "diary_title": "title",
+        "diary_content": "content",
+        "emoji": "😀",
+        "create_date": 1670926612420,
+        "delete_data": 1670926612420
       },
       {
-        time: 1670696098431,
-        title: "Test2",
-        content: "lorem asda dasd adas das asd asdas asd asd asda sd asda da das asd asd asdasda das das as asd asd asd asd asdas dasd a",
-        emoji: "😀"
-      }
-
+        "diary_id": 2,
+        "diary_title": "title2",
+        "diary_content": "content2",
+        "emoji": "😀",
+        "create_date": 1670926612420,
+        "delete_data": 1670926612420
+      },
     ],
     week:
       [
@@ -52,31 +56,31 @@ export default createStore({
         content: "",
         emoji: "😀",
       }
-      
-      if(diary.title == ""){
-        saveDiary.title ="."
-      }else{
+
+      if (diary.title == "") {
+        saveDiary.title = "."
+      } else {
         saveDiary.title = diary.title
       }
-      if(diary.content == ""){
-        saveDiary.content ="."
-      }else{
-        saveDiary.content =  diary.content
+      if (diary.content == "") {
+        saveDiary.content = "."
+      } else {
+        saveDiary.content = diary.content
       }
       // console.log(saveDiary)
       state.diarys.push(saveDiary)
     },
 
-    avtiveEditMode(state) {
-      state.isActiveEditMode = true
+    avtiveCreateMode(state) {
+      state.isActiveCreateMode = true
       state.isActiveHomePage = false
     },
-    closeEditMode(state) {
-      state.isActiveEditMode = false
+    closeCreateMode(state) {
+      state.isActiveCreateMode = false
       state.isActiveHomePage = true
     },
 
-    avtiveLookMode(state,diaryIndex) {
+    avtiveLookMode(state, diaryIndex) {
       state.isActiveLookMode = true
       state.isActiveHomePage = false
       // console.log("store" + diaryIndex)
@@ -85,7 +89,17 @@ export default createStore({
     closeLookMode(state) {
       state.isActiveLookMode = false
       state.isActiveHomePage = true
-     
+
+    },
+
+    activeEditMode(state) {
+      state.isActiveEditMode = true
+    },
+    closeEditMode(state) {
+      state.isActiveEditMode = false
+    },
+    getDiarys(state){
+      this.sqliteDbManager.get_diary_table()
     },
     // ---------------------------------------------------------
     setPageTitle(state, name) {

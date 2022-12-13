@@ -3,7 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import TheHeader from './components/Header.vue'
 import NavBar from './components/NavBar.vue'
-import EditView from './views/EditView.vue'
+import CreateDiaryView from './views/CreateDiaryView.vue'
 import LookView from './views/LookView.vue';
 
 </script>
@@ -28,9 +28,8 @@ import LookView from './views/LookView.vue';
     <div class="info">Data will not be saved</div>
   </div>
 
-  <EditView class="hidden" v-bind:class="{ 'show': $store.state.isActiveEditMode }" />
-  <LookView class="hidden" v-if="$store.state.isActiveLookMode"
-    v-bind:class="{ 'show': $store.state.isActiveLookMode }" />
+  <CreateDiaryView class="hidden" v-bind:class="{ 'show': $store.state.isActiveCreateMode }" />
+  <LookView v-if="$store.state.isActiveLookMode"/>
 
 </template>
 <script>
@@ -40,8 +39,6 @@ export default {
   components: {
   },
   mounted() {
-    let sqliteDbManager = new SqliteManager("s")
-    console.log(sqliteDbManager)
     if (window.cordova) {
 
       document.addEventListener(
@@ -57,15 +54,22 @@ export default {
             location: "default",
             androidDatabaseProvider: 'system'
           });
+          this.$store.state.sqliteDbManager = new SqliteManager(db)
 
-          let sqliteDbManager = new SqliteManager(db)
-          this.$store.state.sqliteDbManager = sqliteDbManager
-          console.log("mydb" + sqliteDbManager.db)
+
+          // console.log(this.$store.state.sqliteDbManager.db)
+          this.$store.state.sqliteDbManager.create_table()
+          this.$store.state.sqliteDbManager.inset_diary()
+          this.$store.state.sqliteDbManager.inset_diary()
+
+          this.$store.state.sqliteDbManager.get_diary_table()
         }, false
       );
     } else {
       console.log("cordova import error");
     }
+
+   
   },
 };
 

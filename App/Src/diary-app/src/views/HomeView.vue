@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     addDiary() {
-      this.$store.commit("avtiveEditMode")
+      this.$store.commit("avtiveCreateMode")
     },
     look(diaryIndex) {
       this.$store.commit("avtiveLookMode",diaryIndex)
