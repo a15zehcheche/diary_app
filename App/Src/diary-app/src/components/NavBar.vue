@@ -1,25 +1,25 @@
 <template>
     <div class="nav-bar">
-        <RouterLink to="/index.html" v-on:click="setTitle('Diary'); slideTo(0);">
+        <div v-on:click="setTitle('Diary'); slideTo(0);">
             <div class="nav-item " v-bind:class="{ 'active': $store.state.pageIndex == 0 }">
                 <img src="@/assets/icons8-paper-80.png" width="35" alt="1">
             </div>
-        </RouterLink>
-        <RouterLink to="/calendar" v-on:click="setTitle('Calendar'); slideTo(1);">
+        </div>
+        <div v-on:click="setTitle('Calendar'); slideTo(1);">
             <div class="nav-item" v-bind:class="{ 'active': $store.state.pageIndex == 1 }">
                 <img src="@/assets/icons8-calendar-80.png" width="35" alt="2">
             </div>
-        </RouterLink>
-        <RouterLink to="/traking" v-on:click="setTitle('Traking'); slideTo(2);">
+        </div>
+        <div v-on:click="setTitle('Traking'); slideTo(2);">
             <div class="nav-item" v-bind:class="{ 'active': $store.state.pageIndex == 2 }">
                 <img src="@/assets/icons8-neutral-trading-80.png" width="35" alt="3">
             </div>
-        </RouterLink>
-        <RouterLink to="/setting" v-on:click="setTitle('Setting'); slideTo(3);">
+        </div>
+        <div v-on:click="setTitle('Setting'); slideTo(3);">
             <div class="nav-item" v-bind:class="{ 'active': $store.state.pageIndex == 3 }">
                 <img src="@/assets/icons8-more-40.png" width="35" alt="4">
             </div>
-        </RouterLink>
+        </div>
     </div>
 </template>
 <script>

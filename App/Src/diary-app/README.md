@@ -48,3 +48,8 @@ npm run build
 cordova build android 
 
 ```
+
+
+### git 
+git tag -a v1.2.0 -m "my version 1.2.0"
+git push origin v1.2.0

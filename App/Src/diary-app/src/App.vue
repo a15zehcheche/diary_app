@@ -3,8 +3,13 @@ import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import TheHeader from './components/Header.vue'
 import NavBar from './components/NavBar.vue'
+
 import CreateDiaryView from './views/CreateDiaryView.vue'
 import LookView from './views/LookView.vue';
+import HomeView from './views/HomeView.vue'
+import CalendarView from './views/CalendarView.vue'
+import TrakingView from './views/TrakingView.vue'
+import SettingView from './views/SettingView.vue'
 
 </script>
 
@@ -23,13 +28,20 @@ import LookView from './views/LookView.vue';
     </div> -->
     </header>
     <div class="conten-body">
-      <swiper :modules="modules" :slides-per-view="1" :space-between="50" 
-        :pagination="{ clickable: true }"  @swiper="onSwiper"
-        @slideChange="onSlideChange">
-        <swiper-slide>Slide 1</swiper-slide>
-        <swiper-slide>Slide 2</swiper-slide>
-        <swiper-slide>Slide 3</swiper-slide>
-        <swiper-slide>Slide 4</swiper-slide>
+      <swiper :slides-per-view="1" :space-between="50" :pagination="{ clickable: true }" 
+        @slideChange="">
+        <swiper-slide>
+          <HomeView />
+        </swiper-slide>
+        <swiper-slide>
+          <CalendarView />
+        </swiper-slide>
+        <swiper-slide>
+          <TrakingView />
+        </swiper-slide>
+        <swiper-slide>
+          <SettingView />
+        </swiper-slide>
       </swiper>
       <!-- <RouterView /> -->
     </div>
@@ -42,22 +54,26 @@ import LookView from './views/LookView.vue';
 
 </template>
 <script>
-// import Swiper core and required modules
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
 // Import Swiper styles
 import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
+
 
 export default {
   name: "App",
+
+
+
   components: {
     Swiper,
     SwiperSlide,
+    HomeView,
+    CalendarView,
+    TrakingView,
+    SettingView,
   },
   data() {
     return {
@@ -97,32 +113,16 @@ export default {
     this.$store.state.swiper.on('slideChange', function (e) {
       element.$store.state.pageIndex = e.activeIndex
     });
-
   },
   methods: {
-   
-  },
-  setup() {
-    const onSwiper = (swiper) => {
-      swiper = swiper
-      console.log(swiper);
-    };
-    const onSlideChange = (e) => {
-      console.log('slide change');
-    };
 
-    return {
-      onSwiper,
-      onSlideChange,
-      modules: [Navigation, Pagination, Scrollbar, A11y],
-    };
   },
 
 };
 
 </script>
 <style scoped>
-.app-body{
+.app-body {
   height: 100vh;
 }
 
@@ -140,9 +140,11 @@ export default {
   padding-top: 120px;
   height: 100vh;
 }
+
 .swiper {
- height: 100%;
+  height: 100%;
 }
+
 header {
   line-height: 1.5;
   width: 100vw;
