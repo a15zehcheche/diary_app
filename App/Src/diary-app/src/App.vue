@@ -9,7 +9,7 @@ import LookView from './views/LookView.vue';
 </script>
 
 <template>
-  <div v-bind:class="{ 'hidden': !$store.state.isActiveHomePage }">
+  <div class="app-body" v-bind:class="{ 'hidden': !$store.state.isActiveHomePage }">
     <header>
       <TheHeader />
       <NavBar />
@@ -23,20 +23,46 @@ import LookView from './views/LookView.vue';
     </div> -->
     </header>
     <div class="conten-body">
-      <RouterView />
+      <swiper :modules="modules" :slides-per-view="1" :space-between="50" 
+        :pagination="{ clickable: true }"  @swiper="onSwiper"
+        @slideChange="onSlideChange">
+        <swiper-slide>Slide 1</swiper-slide>
+        <swiper-slide>Slide 2</swiper-slide>
+        <swiper-slide>Slide 3</swiper-slide>
+        <swiper-slide>Slide 4</swiper-slide>
+      </swiper>
+      <!-- <RouterView /> -->
     </div>
     <div class="info">Data will not be saved</div>
   </div>
 
-  <CreateDiaryView v-if=" $store.state.isActiveCreateMode" class="hidden" v-bind:class="{ 'show': $store.state.isActiveCreateMode }" />
+  <CreateDiaryView v-if="$store.state.isActiveCreateMode" class="hidden"
+    v-bind:class="{ 'show': $store.state.isActiveCreateMode }" />
   <LookView v-if="$store.state.isActiveLookMode" />
 
 </template>
 <script>
+// import Swiper core and required modules
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from 'swiper/vue';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 export default {
   name: "App",
   components: {
+    Swiper,
+    SwiperSlide,
+  },
+  data() {
+    return {
+      index: 0
+    }
   },
   created() {
     if (window.cordova) {
@@ -56,7 +82,7 @@ export default {
           });
           this.$store.state.db = db
           // console.log(this.$store.state.sqliteDbManager.db)
-          this.$store.commit("createDbManager",db)
+          this.$store.commit("createDbManager", db)
           this.$store.commit("getDiarys")
         }, false
       );
@@ -66,13 +92,40 @@ export default {
 
   },
   mounted() {
-
+    this.$store.state.swiper = document.querySelector('.swiper').swiper;
+    let element = this;
+    this.$store.state.swiper.on('slideChange', function (e) {
+      element.$store.state.pageIndex = e.activeIndex
+    });
 
   },
+  methods: {
+   
+  },
+  setup() {
+    const onSwiper = (swiper) => {
+      swiper = swiper
+      console.log(swiper);
+    };
+    const onSlideChange = (e) => {
+      console.log('slide change');
+    };
+
+    return {
+      onSwiper,
+      onSlideChange,
+      modules: [Navigation, Pagination, Scrollbar, A11y],
+    };
+  },
+
 };
 
 </script>
 <style scoped>
+.app-body{
+  height: 100vh;
+}
+
 .edit-active {
   display: block;
 }
@@ -85,14 +138,16 @@ export default {
 
 .conten-body {
   padding-top: 120px;
+  height: 100vh;
 }
-
+.swiper {
+ height: 100%;
+}
 header {
   line-height: 1.5;
-  max-height: 100vh;
   width: 100vw;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
 
 }
 

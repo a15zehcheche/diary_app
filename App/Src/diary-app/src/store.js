@@ -3,19 +3,23 @@ import SqliteManager from "./controller/sqliteManager.js"
 
 export default createStore({
   state: {
-    nowDate:new Date(),
     emojiActive: false,
     lookdiary: 0,
+    pageIndex: 0,
     isActiveHomePage: true,
     isActiveCreateMode: false,
     isActiveEditMode: false,
     isActiveLookMode: false,
-    pageTitle: "Diary",
+    swiper:null,
+
     dbName: "my.db",
-    packageName: "io.cordova.todolist",
-    count: 1,
     db: null,
     sqliteDbManager: null,
+    packageName: "io.cordova.todolist",
+
+    nowDate: new Date(),
+    pageTitle: "Diary",
+    count: 1,
     diarys: [],
     week:
       [
@@ -33,10 +37,10 @@ export default createStore({
     pageTitle: (state) => state.pageTitle
   },
   actions: {
-   
+
   },
   mutations: {
-    refreshDate(state){
+    refreshDate(state) {
       state.nowDate = new Date()
     },
     saveDiary(state, diary) {
@@ -49,10 +53,10 @@ export default createStore({
       state.sqliteDbManager.inset_diary(saveDiary)
 
     },
-    updateDiary(state,diary){
+    updateDiary(state, diary) {
       state.sqliteDbManager.update_diary(diary)
     },
-    deleteDiary(state,diary){
+    deleteDiary(state, diary) {
       state.sqliteDbManager.delete_diary(diary)
     },
     avtiveCreateMode(state) {

@@ -29,6 +29,9 @@ export default class DbManager {
     }
 
     get_diarys_table() {
+        // `SELECT * from diary WHERE diary.create_date > '2022-12-13 00:00:00' and diary.create_date < '2022-12-14 00:00:00'`
+        // `SELECT * from diary WHERE DATETIME(diary.create_date, 'unixepoch') >'2022-12-13 00:00:00' and  DATETIME(diary.create_date, 'unixepoch') < '2022-12-14 00:00:00'`
+        // new Date().toISOString().split('T')[0]
         console.log("print table diary");
         let query = `SELECT * FROM ${this.table_name}`
         this.db.executeSql(query, [], function (rs) {

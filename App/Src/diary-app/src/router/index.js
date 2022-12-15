@@ -1,11 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import VueView from '../views/VueView.vue'
 import CalendarView from '../views/CalendarView.vue'
 import TrakingView from '../views/TrakingView.vue'
 import SettingView from '../views/SettingView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: '/',
+      name: 'vue',
+      component: VueView
+    },
     {
       path: '/index.html',
       name: 'home',

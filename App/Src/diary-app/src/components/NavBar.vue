@@ -1,22 +1,22 @@
 <template>
     <div class="nav-bar">
-        <RouterLink to="/index.html" v-on:click="setTitle('Diary')">
-            <div class="nav-item " v-bind:class="{ 'active': pages[0] }">
+        <RouterLink to="/index.html" v-on:click="setTitle('Diary'); slideTo(0);">
+            <div class="nav-item " v-bind:class="{ 'active': $store.state.pageIndex == 0 }">
                 <img src="@/assets/icons8-paper-80.png" width="35" alt="1">
             </div>
         </RouterLink>
-        <RouterLink to="/calendar" v-on:click="setTitle('Calendar')">
-            <div class="nav-item" v-bind:class="{ 'active': pages[1] }">
+        <RouterLink to="/calendar" v-on:click="setTitle('Calendar'); slideTo(1);">
+            <div class="nav-item" v-bind:class="{ 'active': $store.state.pageIndex == 1 }">
                 <img src="@/assets/icons8-calendar-80.png" width="35" alt="2">
             </div>
         </RouterLink>
-        <RouterLink to="/traking" v-on:click="setTitle('Traking')">
-            <div class="nav-item" v-bind:class="{ 'active': pages[2] }">
+        <RouterLink to="/traking" v-on:click="setTitle('Traking'); slideTo(2);">
+            <div class="nav-item" v-bind:class="{ 'active': $store.state.pageIndex == 2 }">
                 <img src="@/assets/icons8-neutral-trading-80.png" width="35" alt="3">
             </div>
         </RouterLink>
-        <RouterLink to="/setting" v-on:click="setTitle('Setting')">
-            <div class="nav-item" v-bind:class="{ 'active': pages[3] }">
+        <RouterLink to="/setting" v-on:click="setTitle('Setting'); slideTo(3);">
+            <div class="nav-item" v-bind:class="{ 'active': $store.state.pageIndex == 3 }">
                 <img src="@/assets/icons8-more-40.png" width="35" alt="4">
             </div>
         </RouterLink>
@@ -34,22 +34,10 @@ export default {
         };
     },
     methods: {
+        slideTo(index) {
+            this.$store.state.swiper.slideTo(index)
+        },
         setTitle(name) {
-            this.pages = [0,0,0,0]
-            switch (name) {
-                case "Diary":
-                    this.pages[0] = 1
-                    break;
-                case "Calendar":
-                    this.pages[1] = 1
-                    break;
-                case "Traking":
-                    this.pages[2] = 1
-                    break;
-                case "Setting":
-                    this.pages[3] = 1
-                    break;
-            }
             this.$store.commit("setPageTitle", name)
 
         },
@@ -74,6 +62,9 @@ export default {
 }
 
 .active {
-    border-bottom: var(--c-5) solid 5px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border-bottom: var(--c-5) solid 3px;
 }
 </style>
