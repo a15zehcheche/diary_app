@@ -1,16 +1,32 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import VueView from '../App.vue'
+import HomeView from '../Home.vue'
+import CreateDiaryView from '../views/CreateDiaryView.vue'
+import LookView from '../views/LookView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/index.html',
-      name: 'vue',
-      component: VueView
+      name: 'cordovaDefaultRoute',
+      component: HomeView
     },
-  
+    {
+      path: '/',
+      name: 'vueDefaultRoute',
+      component: HomeView
+    },
+    {
+      path: '/create',
+      name: 'create',
+      component: CreateDiaryView
+    },
+    {
+      path: '/look',
+      name: 'look',
+      component: LookView
+    },
     {
       path: '/about',
       name: 'about',

@@ -59,12 +59,13 @@ export default {
     justify-content: center;
     align-items: center;
     height: 100%;
+    border-bottom:var(--c-1) solid 3px;
 }
 
 .active {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    border-bottom: var(--c-5) solid 3px;
+    border-bottom: var(--c-5) solid 3px !important;
 }
 </style>

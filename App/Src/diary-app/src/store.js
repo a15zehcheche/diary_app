@@ -1,15 +1,15 @@
 import { createStore, storeKey } from "vuex";
 import SqliteManager from "./controller/sqliteManager.js"
-
+import emoji from "./assets/emoji.json"
 export default createStore({
   state: {
-    emojiActive: false,
+    emojiActive: true,
     lookdiary: 0,
-    pageIndex: 0,
     isActiveHomePage: true,
     isActiveCreateMode: false,
     isActiveEditMode: false,
     isActiveLookMode: false,
+    pageIndex: 0,
     swiper:null,
 
     dbName: "my.db",
@@ -17,10 +17,26 @@ export default createStore({
     sqliteDbManager: null,
     packageName: "io.cordova.todolist",
 
+    emoji:emoji.filter(emoji => emoji.category == "Smileys & Emotion"),
     nowDate: new Date(),
     pageTitle: "Diary",
     count: 1,
-    diarys: [],
+    diary:{
+      "diary_id": 1,
+      "diary_title": "",
+      "diary_content": "",
+      "emoji": "😀",
+      "create_date": 1671117235337,
+      "delete_data": null
+    },
+    diarys: [{
+      "diary_id": 1,
+      "diary_title": "",
+      "diary_content": "",
+      "emoji": "😀",
+      "create_date": 1671117235337,
+      "delete_data": null
+    }],
     week:
       [
         ["Su", "Sunday"],
