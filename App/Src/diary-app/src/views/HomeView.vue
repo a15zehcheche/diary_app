@@ -5,17 +5,18 @@ import DiarySummary from '../components/DiarySummary.vue';
 </script>
 
 <template lang="">
-  
-  <div class="title-box">
-    <div class="week">{{week}}</div>
-    <div class="date">{{todaydate}}</div>
+  <div class="page-body">
+    <div class="title-box">
+      <div class="week">{{week}}</div>
+      <div class="date">{{todaydate}}</div>
+    </div>
+    <hr>
+    <div class="box-content">
+        <DiarySummary :data="diary" v-for="(diary, index) in diarys" :key="index" @click="look(diary)"/>
+    </div>
+    <div class="info">{{$store.state.diarys.length}}</div>
   </div>
-  <hr>
- 
-  <div class="box-content">
-      <DiarySummary :data="diary" v-for="(diary, index) in diarys" :key="index" @click="look(diary)"/>
-  </div>
-  <div class="info">{{$store.state.diarys.length}}</div>
+
   <div class="footer" @click="addDiary">
     <img src="@/assets/icons8-add-new-80.png" width="50" alt="add">
   </div>
@@ -53,6 +54,17 @@ export default {
 }
 </script>
 <style scoped>
+
+.page-body{
+  overflow: scroll;
+    height: 100%;
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll; 
+}
+.page-body::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+}
 .title-box {
   height: 60px;
   display: grid;
