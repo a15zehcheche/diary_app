@@ -27,7 +27,7 @@ import EditDiaryView from './EditDiaryView.vue';
         <hr>
         <div class="body">
             <div class="diary-title">{{diary.diary_title}}</div>
-            <div>{{diary.diary_content}}</div>
+            <div class="diary-content">{{diary.diary_content}}</div>
         </div>
     
     </div>
@@ -115,6 +115,7 @@ export default {
     grid-template-columns: auto auto;
     margin: 0 5vw;
     margin-top: 10px;
+    
 }
 
 .week {
@@ -150,6 +151,12 @@ export default {
 
 .diary-title {
     font-size: var(--f-s-title);
+    overflow-wrap: break-word;
+
+}
+.diary-content{
+    overflow-wrap: break-word;
+
 }
 
 .body * {
