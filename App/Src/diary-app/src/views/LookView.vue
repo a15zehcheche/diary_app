@@ -50,7 +50,6 @@ export default {
         delete_diary() {
             console.log("delete_btn tap")
             this.$store.commit("deleteDiary", this.diary)
-            this.$store.commit("getDiarys")
         },
         resize() {
             let element = this.$refs["textarea"];
