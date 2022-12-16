@@ -10,9 +10,9 @@ import EditDiaryView from './EditDiaryView.vue';
         <RouterLink to="/edit"  class="editBtn" @click="edit_diary">    
             <img src="@/assets/icons8-edit-104.png" width="30" alt="4" />
         </RouterLink>
-        <div class="deleteBtn" >        
-            <img src="@/assets/icons8-trash-can-96.png" width="35" alt="4" @click="delete_diary"/>
-        </div>
+        <RouterLink to="/" @click="delete_diary" class="deleteBtn" >        
+            <img src="@/assets/icons8-trash-can-96.png" width="35" alt="4" />
+        </RouterLink>
         <TheHeader :title="`Paper`" />
         <div class="title-box">
             <div>

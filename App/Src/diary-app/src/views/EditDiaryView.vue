@@ -4,11 +4,9 @@ import TheHeader from '../components/HeaderSecond.vue'
 </script>
 <template lang="">
     <div class="edit-page">
-        <div class="closeBtn">
-            <RouterLink to="/look" @click="close">
-                <img src="@/assets/icons8-cancel-64.png" width="40"  alt=""/>
-            </RouterLink>
-        </div>
+        <RouterLink to="/look" class="closeBtn" @click="close">
+            <img src="@/assets/icons8-cancel-64.png" width="40"  alt=""/>
+        </RouterLink>
         <div class="saveBtn" >        
             <img src="@/assets/icons8-save-96.png" width="35" alt="4" @click="save"/>
         </div>
