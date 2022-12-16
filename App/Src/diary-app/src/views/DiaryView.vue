@@ -57,20 +57,7 @@ export default {
 }
 </script>
 <style scoped>
-.page-body {
-  overflow: scroll;
-  height: 100%;
-  -ms-overflow-style: none;
-  /* for Internet Explorer, Edge */
-  scrollbar-width: none;
-  /* for Firefox */
-  overflow-y: scroll;
-}
 
-.page-body::-webkit-scrollbar {
-  display: none;
-  /* for Chrome, Safari, and Opera */
-}
 
 .title-box {
   height: 60px;
