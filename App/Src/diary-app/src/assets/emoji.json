@@ -135,20 +135,7 @@
   , "unicode_version": "8.0"
   , "ios_version": "9.1"
   }
-, {
-    "emoji": "🫠"
-  , "description": "melting face"
-  , "category": "Smileys & Emotion"
-  , "aliases": [
-      "melting_face"
-    ]
-  , "tags": [
-      "sarcasm"
-    , "dread"
-    ]
-  , "unicode_version": "14.0"
-  , "ios_version": "15.4"
-  }
+
 , {
     "emoji": "😉"
   , "description": "winking face"
@@ -291,18 +278,7 @@
   , "unicode_version": "6.1"
   , "ios_version": "6.0"
   }
-, {
-    "emoji": "🥲"
-  , "description": "smiling face with tear"
-  , "category": "Smileys & Emotion"
-  , "aliases": [
-      "smiling_face_with_tear"
-    ]
-  , "tags": [
-    ]
-  , "unicode_version": "13.0"
-  , "ios_version": "14.0"
-  }
+
 , {
     "emoji": "😋"
   , "description": "face savoring food"
@@ -410,32 +386,6 @@
   , "ios_version": "12.1"
   }
 , {
-    "emoji": "🫢"
-  , "description": "face with open eyes and hand over mouth"
-  , "category": "Smileys & Emotion"
-  , "aliases": [
-      "face_with_open_eyes_and_hand_over_mouth"
-    ]
-  , "tags": [
-      "gasp"
-    , "shock"
-    ]
-  , "unicode_version": "14.0"
-  , "ios_version": "15.4"
-  }
-, {
-    "emoji": "🫣"
-  , "description": "face with peeking eye"
-  , "category": "Smileys & Emotion"
-  , "aliases": [
-      "face_with_peeking_eye"
-    ]
-  , "tags": [
-    ]
-  , "unicode_version": "14.0"
-  , "ios_version": "15.4"
-  }
-, {
     "emoji": "🤫"
   , "description": "shushing face"
   , "category": "Smileys & Emotion"
@@ -460,19 +410,6 @@
     ]
   , "unicode_version": "8.0"
   , "ios_version": "9.1"
-  }
-, {
-    "emoji": "🫡"
-  , "description": "saluting face"
-  , "category": "Smileys & Emotion"
-  , "aliases": [
-      "saluting_face"
-    ]
-  , "tags": [
-      "respect"
-    ]
-  , "unicode_version": "14.0"
-  , "ios_version": "15.4"
   }
 , {
     "emoji": "🤐"
@@ -541,20 +478,7 @@
   , "ios_version": "6.0"
   }
 , {
-    "emoji": "🫥"
-  , "description": "dotted line face"
-  , "category": "Smileys & Emotion"
-  , "aliases": [
-      "dotted_line_face"
-    ]
-  , "tags": [
-      "invisible"
-    ]
-  , "unicode_version": "14.0"
-  , "ios_version": "15.4"
-  }
-, {
-    "emoji": "😶‍🌫️"
+    "emoji": "😶"
   , "description": "face in clouds"
   , "category": "Smileys & Emotion"
   , "aliases": [
@@ -616,7 +540,7 @@
   , "ios_version": "6.0"
   }
 , {
-    "emoji": "😮‍💨"
+    "emoji": "😮"
   , "description": "face exhaling"
   , "category": "Smileys & Emotion"
   , "aliases": [
@@ -892,18 +816,6 @@
   , "ios_version": "12.1"
   }
 , {
-    "emoji": "🥸"
-  , "description": "disguised face"
-  , "category": "Smileys & Emotion"
-  , "aliases": [
-      "disguised_face"
-    ]
-  , "tags": [
-    ]
-  , "unicode_version": "13.0"
-  , "ios_version": "14.0"
-  }
-, {
     "emoji": "😎"
   , "description": "smiling face with sunglasses"
   , "category": "Smileys & Emotion"
@@ -953,19 +865,6 @@
     ]
   , "unicode_version": "6.1"
   , "ios_version": "6.0"
-  }
-, {
-    "emoji": "🫤"
-  , "description": "face with diagonal mouth"
-  , "category": "Smileys & Emotion"
-  , "aliases": [
-      "face_with_diagonal_mouth"
-    ]
-  , "tags": [
-      "confused"
-    ]
-  , "unicode_version": "14.0"
-  , "ios_version": "15.4"
   }
 , {
     "emoji": "😟"
@@ -1072,20 +971,6 @@
     ]
   , "unicode_version": "11.0"
   , "ios_version": "12.1"
-  }
-, {
-    "emoji": "🥹"
-  , "description": "face holding back tears"
-  , "category": "Smileys & Emotion"
-  , "aliases": [
-      "face_holding_back_tears"
-    ]
-  , "tags": [
-      "tears"
-    , "gratitude"
-    ]
-  , "unicode_version": "14.0"
-  , "ios_version": "15.4"
   }
 , {
     "emoji": "😦"
@@ -1811,7 +1696,7 @@
   , "ios_version": "6.0"
   }
 , {
-    "emoji": "❤️‍🔥"
+    "emoji": "🔥"
   , "description": "heart on fire"
   , "category": "Smileys & Emotion"
   , "aliases": [
@@ -1823,7 +1708,7 @@
   , "ios_version": "14.0"
   }
 , {
-    "emoji": "❤️‍🩹"
+    "emoji": "🩹"
   , "description": "mending heart"
   , "category": "Smileys & Emotion"
   , "aliases": [

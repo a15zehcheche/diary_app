@@ -27,7 +27,7 @@ export default {
         time(){
             let hour = new Date(this.data.create_date).getHours()
             let minu = new Date(this.data.create_date).getMinutes()
-            return `${hour}:${minu}`
+            return `${String(hour).padStart(2, '0')}:${String(minu).padStart(2, '0')}`
         }
     }
 }

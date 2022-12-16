@@ -5,7 +5,9 @@ import TheHeader from '../components/HeaderSecond.vue'
 <template lang="">
     <div class="edit-page">
         <div class="closeBtn">
-            <img src="@/assets/icons8-cancel-64.png" width="40"  alt="" @click="closeEditMode"/>
+            <RouterLink to="/look" @click="close">
+                <img src="@/assets/icons8-cancel-64.png" width="40"  alt=""/>
+            </RouterLink>
         </div>
         <div class="saveBtn" >        
             <img src="@/assets/icons8-save-96.png" width="35" alt="4" @click="save"/>
@@ -17,7 +19,9 @@ import TheHeader from '../components/HeaderSecond.vue'
                 <div class="date">{{todaydate}}</div>
             </div>
             <div>
-                <div v-if="$store.state.emojiActive" class="emoji">emoji</div>
+                <RouterLink to="/emoji/edit" class="emoji">
+                    {{diary_copy.emoji}}
+                </RouterLink>
                 <div class="time">{{time}}</div>
             </div>
         </div>
@@ -32,12 +36,10 @@ import TheHeader from '../components/HeaderSecond.vue'
 <script>
 
 export default {
-    props: {
-        diary: Object
-    },
+
     data() {
         return {
-            diary_copy: Object.assign({}, this.diary)
+            diary_copy: this.$store.state.lookdiaryedit
         }
     },
     mounted() {
@@ -48,22 +50,23 @@ export default {
     },
 
     methods: {
-        closeEditMode() {
-            this.$store.commit("closeEditMode")
-        },
+     
         save() {
             console.log("Update diary_copy")
             this.$store.commit("updateDiary", this.diary_copy)
             this.$store.commit("avtiveLookMode", this.diary_copy)
             this.$store.commit("getDiarys")
+            this.$router.push("/look")
             console.log(this.$store.state.diarys)
-            this.$store.commit("closeEditMode")
         },
         resize() {
             let element = this.$refs["textarea"];
             element.style.height = "100px";
             element.style.height = element.scrollHeight + 100 + "px";
         },
+        close(){
+            this.$store.commit("resetDiaryData")
+        }
 
     },
     computed: {
@@ -77,7 +80,7 @@ export default {
         },
         time() {
             let today = new Date(this.diary_copy.create_date)
-            return `${today.getHours()}:${today.getMinutes()}`
+            return `${ String(today.getHours()).padStart(2, '0')}:${String(today.getMinutes()).padStart(2, '0')}`
         }
     }
 }

@@ -4,14 +4,10 @@ import emoji from "./assets/emoji.json"
 export default createStore({
   state: {
     emojiActive: true,
-    lookdiary: 0,
-    isActiveHomePage: true,
-    isActiveCreateMode: false,
-    isActiveEditMode: false,
-    isActiveLookMode: false,
     pageIndex: 0,
     swiper:null,
-
+    lookdiary:{},
+    lookdiaryedit:{},
     dbName: "my.db",
     db: null,
     sqliteDbManager: null,
@@ -22,17 +18,18 @@ export default createStore({
     pageTitle: "Diary",
     count: 1,
     diary:{
-      "diary_id": 1,
+      "diary_id": 0,
       "diary_title": "",
       "diary_content": "",
-      "emoji": "😀",
-      "create_date": 1671117235337,
+      "emoji": "☺️",
+      "create_date": null,
       "delete_data": null
     },
+    xdiarys:[],
     diarys: [{
       "diary_id": 1,
-      "diary_title": "",
-      "diary_content": "",
+      "diary_title": "title",
+      "diary_content": "conten",
       "emoji": "😀",
       "create_date": 1671117235337,
       "delete_data": null
@@ -60,14 +57,21 @@ export default createStore({
       state.nowDate = new Date()
     },
     saveDiary(state, diary) {
-      let saveDiary = {
-        "diary_title": diary.title,
-        "diary_content": diary.content,
-        "emoji": diary.emoji,
-        "create_date": diary.time,
+      // let saveDiary = {
+      //   "diary_title": diary.title,
+      //   "diary_content": diary.content,
+      //   "emoji": diary.emoji,
+      //   "create_date": diary.time,
+      // }
+      state.sqliteDbManager.inset_diary(  state.diary)
+      state.diary = {
+        "diary_id": 0,
+        "diary_title": "",
+        "diary_content": "",
+        "emoji": "☺️",
+        "create_date": null,
+        "delete_data": null
       }
-      state.sqliteDbManager.inset_diary(saveDiary)
-
     },
     updateDiary(state, diary) {
       state.sqliteDbManager.update_diary(diary)
@@ -75,31 +79,26 @@ export default createStore({
     deleteDiary(state, diary) {
       state.sqliteDbManager.delete_diary(diary)
     },
-    avtiveCreateMode(state) {
-      state.isActiveCreateMode = true
-      state.isActiveHomePage = false
+    resetDiaryData(state){
+      console.log("reset create data")
+      
     },
-    closeCreateMode(state) {
-      state.isActiveCreateMode = false
-      state.isActiveHomePage = true
-    },
-
     avtiveLookMode(state, diary) {
-      state.isActiveLookMode = true
-      state.isActiveHomePage = false
       state.lookdiary = diary
-    },
-    closeLookMode(state) {
-      state.isActiveLookMode = false
-      state.isActiveHomePage = true
+      state.lookdiaryedit = Object.assign({},diary)
 
     },
-
-    activeEditMode(state) {
-      state.isActiveEditMode = true
+    resetDiaryData(state){
+      state.lookdiaryedit = Object.assign({},state.lookdiary)
     },
-    closeEditMode(state) {
-      state.isActiveEditMode = false
+    setEmoji(state,data){
+      if(data.name == "create"){
+        state.diary.emoji = data.emoji
+      }else if(data.name == "edit"){
+        state.lookdiaryedit.emoji = data.emoji
+        console.log("set emoji from edit")
+      }
+      console.log(state.lookdiary)
     },
     createDbManager(state, db) {
       state.sqliteDbManager = new SqliteManager(db)
@@ -135,10 +134,17 @@ export default createStore({
       });
       //state.diarys = this.sqliteDbManager.get_diarys_table()
     },
-    // ---------------------------------------------------------
     setPageTitle(state, name) {
       state.pageTitle = name;
     },
+
+
+
+
+
+
+    // ---------------------------------------------------------
+   
     increment(state) {
       state.count++;
     },

@@ -14,7 +14,7 @@ import SettingView from './views/SettingView.vue'
 </script>
 
 <template>
-  <div class="app-body" v-bind:class="{ 'hidden': !$store.state.isActiveHomePage }">
+  <div class="app-body">
     <header>
       <TheHeader />
       <NavBar />
@@ -47,11 +47,6 @@ import SettingView from './views/SettingView.vue'
     </div>
     <div class="info">Data will not be saved</div>
   </div>
-
-  <CreateDiaryView v-if="$store.state.isActiveCreateMode" class="hidden"
-    v-bind:class="{ 'show': $store.state.isActiveCreateMode }" />
-  <LookView v-if="$store.state.isActiveLookMode" />
-
 </template>
 <script>
 

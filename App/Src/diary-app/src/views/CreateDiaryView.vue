@@ -4,9 +4,11 @@ import TheHeader from '../components/HeaderSecond.vue'
 </script>
 <template lang="">
     <div class="edit-page">
-        <div class="closeBtn">
-            <img src="@/assets/icons8-cancel-64.png" width="40"  alt="" @click="closeCreateMode"/>
-        </div>
+        <RouterLink to="/">
+            <div class="closeBtn">
+                <img src="@/assets/icons8-cancel-64.png" width="40"  alt=""/>
+            </div>
+        </RouterLink>
         <div class="saveBtn" >        
             <img src="@/assets/icons8-save-96.png" width="35" alt="4" @click="save"/>
         </div>
@@ -16,15 +18,17 @@ import TheHeader from '../components/HeaderSecond.vue'
                 <div class="week">{{week}}</div>
                 <div class="date">{{todaydate}}</div>
             </div>
-            <div>
-                <div v-if="$store.state.emojiActive" class="emoji">emoji</div>
+            <div>  
+                <RouterLink to="/emoji/create" class="emoji">
+                    {{diary.emoji}}
+                </RouterLink>
                 <div class="time">{{time}}</div>
             </div>
         </div>
         <hr>
         <div class="body">
-            <input type="text" placeholder="Title..." v-model="diary.title">
-            <textarea placeholder="Write something..." @input="resize()" ref="textarea" v-model="diary.content"></textarea>
+            <input type="text" placeholder="Title..." v-model="diary.diary_title">
+            <textarea placeholder="Write something..." @input="resize()" ref="textarea" v-model="diary.diary_content"></textarea>
         </div>
         
     </div>
@@ -34,19 +38,13 @@ import TheHeader from '../components/HeaderSecond.vue'
 export default {
     data() {
         return {
-            diary: {
-                time: "",
-                title: "",
-                content: "",
-                emoji: "😀",
-            }
 
         }
     },
-    created(){
+    created() {
         this.$store.commit("refreshDate")
-        this.diary.time = this.$store.state.nowDate.getTime()
-        console.log( this.diary)
+        this.diary.create_date = this.$store.state.nowDate.getTime()
+        console.log(this.diary)
     },
     updated() {
         let element = this.$refs["textarea"];
@@ -54,20 +52,11 @@ export default {
         element.style.height = element.scrollHeight + 100 + "px";
     },
     methods: {
-        closeCreateMode(){
-            this.$store.commit("closeCreateMode")
-        },
         save() {
             console.log("save")
             this.$store.commit("saveDiary", this.diary)
-            this.$store.commit("getDiarys")
-            this.$store.commit("closeCreateMode")
-            this.diary = {
-                time:"",
-                title: "",
-                content: "",
-                emoji: "",
-            }
+            //this.$store.commit("getDiarys")
+            this.$router.push("/")
         },
         resize() {
             let element = this.$refs["textarea"];
@@ -77,22 +66,22 @@ export default {
     },
     computed: {
         week() {
-            let dayNum =this.$store.state.nowDate.getDay()
+            let dayNum = this.$store.state.nowDate.getDay()
             return this.$store.state.week[dayNum][1]
         },
         todaydate() {
             let today = this.$store.state.nowDate
             return `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
         },
-        time(){
-            let today = this.$store.state.nowDate
-            return `${today.getHours()}:${today.getMinutes()}`
-        }
+        time() {
+            let today = this.$store.state.nowDate 
+            return `${ String(today.getHours()).padStart(2, '0')}:${String(today.getMinutes()).padStart(2, '0')}`
+        },
+        diary() { return this.$store.state.diary }
     }
 }
 </script>
 <style scoped>
-
 .saveBtn {
     position: absolute;
     height: 60px;
@@ -139,7 +128,8 @@ export default {
     justify-content: end;
     font-size: var(--f-s-title);
 }
-.time{
+
+.time {
     display: flex;
     align-items: flex-end;
     justify-content: end;

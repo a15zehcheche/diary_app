@@ -3,7 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../Home.vue'
 import CreateDiaryView from '../views/CreateDiaryView.vue'
 import LookView from '../views/LookView.vue';
-
+import EditView from '../views/EditDiaryView.vue'
+import EmojiView from '../views/EmojiView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -26,6 +27,16 @@ const router = createRouter({
       path: '/look',
       name: 'look',
       component: LookView
+    },
+    {
+      path:'/edit',
+      name:'edit',
+      component:EditView
+    },
+    {
+      path:'/emoji/:comminPage',
+      name:'emoji',
+      component:EmojiView
     },
     {
       path: '/about',

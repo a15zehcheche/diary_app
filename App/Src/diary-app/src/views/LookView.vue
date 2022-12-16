@@ -4,12 +4,12 @@ import EditDiaryView from './EditDiaryView.vue';
 </script>
 <template lang="">
     <div class="look-page">
-        <div class="closeBtn">
-            <img src="@/assets/icons8-cancel-64.png" width="40"  alt="" @click="closeLookMode"/>
-        </div>
-        <div class="editBtn" >        
-            <img src="@/assets/icons8-edit-104.png" width="30" alt="4" @click="edit_diary"/>
-        </div>
+        <RouterLink to="/" class="closeBtn" >  
+            <img src="@/assets/icons8-cancel-64.png" width="40"  alt=""/>
+        </RouterLink>
+        <RouterLink to="/edit"  class="editBtn" @click="edit_diary">    
+            <img src="@/assets/icons8-edit-104.png" width="30" alt="4" />
+        </RouterLink>
         <div class="deleteBtn" >        
             <img src="@/assets/icons8-trash-can-96.png" width="35" alt="4" @click="delete_diary"/>
         </div>
@@ -31,29 +31,26 @@ import EditDiaryView from './EditDiaryView.vue';
         </div>
     
     </div>
-    <EditDiaryView v-if="$store.state.isActiveEditMode" :diary="diary"/>
 </template>
 <script>
 
 export default {
     data() {
         return {
-      
+
         }
     },
     created() {
         // console.log(this.$store.state.lookDiaryIndex)
     },
     methods: {
-        edit_diary(){
-            console.log("edit_btn tap")
-            this.$store.commit("activeEditMode")
+        edit_diary() {
+            console.log("edit")
         },
-        delete_diary(){
+        delete_diary() {
             console.log("delete_btn tap")
-            this.$store.commit("deleteDiary",this.diary)
+            this.$store.commit("deleteDiary", this.diary)
             this.$store.commit("getDiarys")
-            this.$store.commit("closeLookMode")
         },
         resize() {
             let element = this.$refs["textarea"];
@@ -73,18 +70,20 @@ export default {
             let today = new Date(this.diary.create_date)
             return `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
         },
-        time(){
+        time() {
             let today = new Date(this.diary.create_date)
-            return `${today.getHours()}:${ today.getMinutes()}`
+            return `${String(today.getHours()).padStart(2, '0')}:${String(today.getMinutes()).padStart(2, '0')}`
+
         },
-        diary(){
+        diary() {
             return this.$store.state.lookdiary
         }
     }
 }
 </script>
 <style scoped>
-.editBtn, .deleteBtn {
+.editBtn,
+.deleteBtn {
     position: absolute;
     height: 60px;
     width: 60px;
@@ -95,7 +94,8 @@ export default {
     justify-content: center;
     align-items: center;
 }
-.editBtn{
+
+.editBtn {
     right: 60px;
     height: 60px;
     width: 60px;
@@ -124,7 +124,8 @@ export default {
     font-weight: bold;
     font-size: var(--f-s-20);
 }
-.time{
+
+.time {
     display: flex;
     align-items: flex-end;
     justify-content: end;
@@ -148,7 +149,7 @@ export default {
     justify-content: center;
 }
 
-.diary-title{
+.diary-title {
     font-size: var(--f-s-title);
 }
 

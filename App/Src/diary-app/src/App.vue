@@ -10,9 +10,7 @@ import HomeView from './Home.vue'
 
 export default {
   name: "App",
-  mounted() {
-    console.log(this.$store.state.emoji);
-  }
+
 }
 
 </script>

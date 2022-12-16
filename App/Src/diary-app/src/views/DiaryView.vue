@@ -1,6 +1,7 @@
 <script setup>
 import TheWelcome from '../components/TheWelcome.vue'
 import DiarySummary from '../components/DiarySummary.vue';
+import { RouterLink } from 'vue-router'
 
 </script>
 
@@ -12,14 +13,17 @@ import DiarySummary from '../components/DiarySummary.vue';
     </div>
     <hr>
     <div class="box-content">
+      <RouterLink to="/look">
         <DiarySummary :data="diary" v-for="(diary, index) in diarys" :key="index" @click="look(diary)"/>
+      </RouterLink>
     </div>
     <div class="info">{{$store.state.diarys.length}}</div>
   </div>
-
-  <div class="footer" @click="addDiary">
-    <img src="@/assets/icons8-add-new-80.png" width="50" alt="add">
-  </div>
+  <RouterLink to="/create">
+    <div class="footer">
+     <img src="@/assets/icons8-add-new-80.png" width="50" alt="add">
+    </div>
+  </RouterLink>
 </template>
 <script>
 export default {
@@ -28,7 +32,6 @@ export default {
     };
   },
   created() {
-    
   },
   methods: {
     addDiary() {
@@ -40,7 +43,7 @@ export default {
   },
   computed: {
     week() {
-      let dayNum =this.$store.state.nowDate.getDay()
+      let dayNum = this.$store.state.nowDate.getDay()
       return this.$store.state.week[dayNum][1]
     },
     todaydate() {
@@ -54,17 +57,21 @@ export default {
 }
 </script>
 <style scoped>
-
-.page-body{
+.page-body {
   overflow: scroll;
-    height: 100%;
-    -ms-overflow-style: none; /* for Internet Explorer, Edge */
-    scrollbar-width: none; /* for Firefox */
-    overflow-y: scroll; 
+  height: 100%;
+  -ms-overflow-style: none;
+  /* for Internet Explorer, Edge */
+  scrollbar-width: none;
+  /* for Firefox */
+  overflow-y: scroll;
 }
+
 .page-body::-webkit-scrollbar {
-    display: none; /* for Chrome, Safari, and Opera */
+  display: none;
+  /* for Chrome, Safari, and Opera */
 }
+
 .title-box {
   height: 60px;
   display: grid;
