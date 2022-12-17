@@ -27,7 +27,7 @@ import EditDiaryView from './EditDiaryView.vue';
         <hr>
         <div class="body">
             <div class="diary-title">{{diary.diary_title}}</div>
-            <div class="diary-content">{{diary.diary_content}}</div>
+            <textarea ref="textarea" readonly class="diary-content">{{diary.diary_content}}</textarea>
         </div>
     
     </div>
@@ -43,6 +43,10 @@ export default {
     created() {
         // console.log(this.$store.state.lookDiaryIndex)
     },
+    mounted() {
+        let element = this.$refs["textarea"];
+        element.style.height = element.scrollHeight + 100 + "px";
+    },
     methods: {
         edit_diary() {
             console.log("edit")
@@ -53,7 +57,6 @@ export default {
         },
         resize() {
             let element = this.$refs["textarea"];
-            element.style.height = "100px";
             element.style.height = element.scrollHeight + 100 + "px";
         },
         closeLookMode() {
@@ -169,9 +172,12 @@ input[type="text"] {
 }
 
 textarea {
-    min-height: 100px;
+    height: 100px;
     padding: 0;
     resize: none;
     font-size: var(--f-s-sub-title);
+    overflow-y: hidden;
+    border: none;
+    outline: none;
 }
 </style>

@@ -29,7 +29,15 @@ export default createStore({
     diarys: [{
       "diary_id": 1,
       "diary_title": "title",
-      "diary_content": "conten",
+      "diary_content": `conten
+      asd
+      
+      asd
+      
+      asd
+      asdas
+      asd
+      asd`,
       "emoji": "😀",
       "create_date": 1671117235337,
       "delete_data": null
