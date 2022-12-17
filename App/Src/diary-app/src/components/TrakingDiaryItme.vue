@@ -6,7 +6,7 @@
                     <div class="time">{{time}}</div>
                     {{diaryDate}}
                 </div>
-                <div class="week">su</div>
+                <div class="week">{{week}}</div>
             </div>
             <div class="my-hr"></div>
             <img src="@/assets/sort-down.png" width="20"  alt=""/>
@@ -31,9 +31,12 @@
 </template>
 <script>
 export default {
+    props:{
+        diary:Object
+    },
     data() {
         return {
-            diary: this.$store.state.diarys[0],
+            // diary: this.$store.state.diarys[0],
             boxWidth:100
         }
     },
@@ -47,12 +50,13 @@ export default {
             let minu = new Date(this.diary.create_date).getMinutes()
             return `${String(hour).padStart(2, '0')}:${String(minu).padStart(2, '0')}`
         },
+        week() {
+            let dayNum = new Date(this.diary.create_date).getDay()
+            return this.$store.state.week[dayNum][0]
+        },
         diaryDate(){
-            let date = new Date(this.diary.create_date)
-            let day = date.getDay()
-            let month = date.getMonth()
-            let year = date.getFullYear()
-            return `${day}/${month+1}/${year}`
+            let today = new Date(this.diary.create_date)
+            return `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
 
         }
     }
@@ -136,7 +140,7 @@ export default {
 .content {
     display: -webkit-box;
     /* max-width: 200px; */
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     overflow-wrap: break-word;

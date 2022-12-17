@@ -108,6 +108,7 @@ export default {
     this.$store.state.swiper.on('slideChange', function (e) {
       element.$store.state.pageIndex = e.activeIndex
     });
+    this.$store.state.swiper.slideTo(element.$store.state.pageIndex,0)
   },
   methods: {
 

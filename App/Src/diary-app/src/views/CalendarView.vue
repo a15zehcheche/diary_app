@@ -1,5 +1,5 @@
 <template lang="">
-    <div>
+    <div class="page-body">
         <Calendar />
     </div>
 </template>

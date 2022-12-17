@@ -5,8 +5,9 @@
             <div class="searchIcon">icon</div>
         </div>
         <hr>
-        <DiaryItem :data="diary" v-for="(diary, index) in diarys" :key="index" @click="look(diary)"></DiaryItem>
-
+        <RouterLink to="/look">
+            <DiaryItem :diary="diary" v-for="(diary, index) in diarys" :key="index" @click="look(diary)"></DiaryItem>
+        </RouterLink>
     </div>
 </template>
 <script>
@@ -14,6 +15,11 @@ import DiaryItem from "../components/TrakingDiaryItme.vue";
 export default {
     components: {
         DiaryItem
+    },
+    methods: {
+        look(diary) {
+            this.$store.commit("avtiveLookMode", diary)
+        }
     },
     computed: {
         diarys() {

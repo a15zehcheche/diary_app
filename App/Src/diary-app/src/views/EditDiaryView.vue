@@ -42,8 +42,7 @@ export default {
     },
     mounted() {
         let element = this.$refs["textarea"];
-        element.style.height = "100px";
-        element.style.height = element.scrollHeight + 100 + "px";
+        element.style.height = element.scrollHeight + "px";
 
     },
 
@@ -59,8 +58,7 @@ export default {
         },
         resize() {
             let element = this.$refs["textarea"];
-            element.style.height = "100px";
-            element.style.height = element.scrollHeight + 100 + "px";
+            element.style.height = element.scrollHeight + "px";
         },
         close(){
             this.$store.commit("resetDiaryData")
@@ -154,9 +152,12 @@ input[type="text"] {
 }
 
 textarea {
-    min-height: 100px;
+    height: 100px;
     padding: 0;
     resize: none;
     font-size: var(--f-s-sub-title);
+    overflow-y: hidden;
+    border: none;
+    outline: none;
 }
 </style>

@@ -46,10 +46,9 @@ export default {
         this.diary.create_date = this.$store.state.nowDate.getTime()
         console.log(this.diary)
     },
-    updated() {
+    mounted() {
         let element = this.$refs["textarea"];
-        element.style.height = "100px";
-        element.style.height = element.scrollHeight + 100 + "px";
+        element.style.height = element.scrollHeight + "px";
     },
     methods: {
         save() {
@@ -60,8 +59,7 @@ export default {
         },
         resize() {
             let element = this.$refs["textarea"];
-            element.style.height = "100px";
-            element.style.height = element.scrollHeight + 100 + "px";
+            element.style.height = element.scrollHeight + "px";
         },
     },
     computed: {
@@ -152,9 +150,12 @@ input[type="text"] {
 }
 
 textarea {
-    min-height: 100px;
+    height: 100px;
     padding: 0;
     resize: none;
     font-size: var(--f-s-sub-title);
+    overflow-y: hidden;
+    border: none;
+    outline: none;
 }
 </style>

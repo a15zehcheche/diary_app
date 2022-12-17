@@ -36,13 +36,13 @@ export default createStore({
     }],
     week:
       [
-        ["Su", "Sunday"],
-        ["Mo", "Monday"],
-        ["Tu", "Tuesday"],
-        ["We", "Wednesday"],
-        ["Th", "Thursday"],
-        ["Fr", "Friday"],
-        ["Sa", "Satuday"],
+        ["Sun", "Sunday"],
+        ["Mon", "Monday"],
+        ["Tue", "Tuesday"],
+        ["Wed", "Wednesday"],
+        ["Thu", "Thursday"],
+        ["Fri", "Friday"],
+        ["Sat", "Satuday"],
       ]
   },
   getters: {
